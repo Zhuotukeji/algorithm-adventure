@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Play, RotateCcw, Lightbulb, Copy, Check } from 'lucide-react';
 
 interface CodeEditorProps {
@@ -14,6 +14,53 @@ interface CodeEditorProps {
   currentHint: number;
 }
 
+// C++ syntax highlighting patterns
+const CPP_KEYWORDS = [
+  'int', 'float', 'double', 'char', 'bool', 'void', 'return', 'if', 'else',
+  'for', 'while', 'do', 'switch', 'case', 'break', 'continue', 'const',
+  'include', 'using', 'namespace', 'std', 'string', 'true', 'false', 'new', 'delete'
+];
+
+const CPP_TYPES = ['int', 'float', 'double', 'char', 'bool', 'void', 'string'];
+
+const CPP_KEYWORDS_SET = new Set(CPP_KEYWORDS);
+const CPP_TYPES_SET = new Set(CPP_TYPES);
+
+// Simple syntax highlighting function
+const highlightCode = (code: string): string => {
+  // Escape HTML first
+  let highlighted = code
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+
+  // Highlight strings (double quotes)
+  highlighted = highlighted.replace(/"([^"\\]|\\.)*"/g, '<span class="text-green-400">$&</span>');
+
+  // Highlight single-line comments
+  highlighted = highlighted.replace(/(\/\/.*)/g, '<span class="text-gray-500">$1</span>');
+
+  // Highlight preprocessor directives
+  highlighted = highlighted.replace(/(#\w+)/g, '<span class="text-purple-400">$1</span>');
+
+  // Highlight numbers
+  highlighted = highlighted.replace(/\b(\d+\.?\d*)\b/g, '<span class="text-orange-400">$1</span>');
+
+  // Highlight keywords and types
+  const words = highlighted.split(/([^a-zA-Z_][a-zA-Z_]*)/);
+  highlighted = words.map(word => {
+    if (CPP_KEYWORDS_SET.has(word)) {
+      if (CPP_TYPES_SET.has(word)) {
+        return `<span class="text-blue-400 font-semibold">${word}</span>`;
+      }
+      return `<span class="text-purple-400 font-semibold">${word}</span>`;
+    }
+    return word;
+  }).join('');
+
+  return highlighted;
+};
+
 const CodeEditor: React.FC<CodeEditorProps> = ({
   code,
   onChange,
@@ -27,12 +74,47 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
   currentHint,
 }) => {
   const [copied, setCopied] = useState(false);
+  const [showLineNumbers, setShowLineNumbers] = useState(true);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const highlightRef = useRef<HTMLDivElement>(null);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(code);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  // Handle Tab key for indentation
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      const textarea = textareaRef.current;
+      if (!textarea) return;
+
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const newCode = code.substring(0, start) + '    ' + code.substring(end);
+      onChange(newCode);
+
+      // Set cursor position after the tab
+      setTimeout(() => {
+        textarea.selectionStart = textarea.selectionEnd = start + 4;
+      }, 0);
+    }
+
+    // Ctrl+Enter or Cmd+Enter to run code
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+      e.preventDefault();
+      onRun();
+    }
+  };
+
+  // Sync scroll between textarea and highlight layer
+  const handleScroll = () => {
+    if (textareaRef.current && highlightRef.current) {
+      highlightRef.current.scrollTop = textareaRef.current.scrollTop;
+      highlightRef.current.scrollLeft = textareaRef.current.scrollLeft;
+    }
   };
 
   // Auto-resize textarea
@@ -42,6 +124,9 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
       textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
     }
   }, [code]);
+
+  // Generate line numbers
+  const lineNumbers = code.split('\n').map((_, i) => i + 1);
 
   return (
     <div className="flex flex-col h-full">
@@ -56,6 +141,9 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
           <span className="text-gray-400 text-sm ml-3">main.cpp</span>
         </div>
         <div className="flex items-center space-x-2">
+          <span className="text-xs text-gray-500 mr-2 hidden sm:inline">
+            Tab 缩进 | Ctrl+Enter 运行
+          </span>
           <button
             onClick={handleCopy}
             className="p-2 text-gray-400 hover:text-white transition-colors"
@@ -74,27 +162,52 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
       </div>
 
       {/* Code Area */}
-      <div className="relative flex-1 bg-[#1e1e1e]">
+      <div className="relative flex-1 bg-[#1e1e1e] rounded-b-xl overflow-hidden">
         {/* Line Numbers */}
-        <div className="absolute left-0 top-0 bottom-0 w-12 bg-[#252526] border-r border-gray-700 flex flex-col items-end py-4 pr-2 text-gray-500 text-sm font-mono select-none">
-          {code.split('\n').map((_, i) => (
-            <div key={i} className="leading-6">{i + 1}</div>
-          ))}
-        </div>
+        {showLineNumbers && (
+          <div className="absolute left-0 top-0 bottom-0 w-12 bg-[#252526] border-r border-gray-700 flex flex-col items-end py-4 pr-2 text-gray-500 text-sm font-mono select-none z-10">
+            {lineNumbers.map((num) => (
+              <div key={num} className="leading-6">{num}</div>
+            ))}
+          </div>
+        )}
 
-        {/* Editor */}
-        <textarea
-          ref={textareaRef}
-          value={code}
-          onChange={(e) => onChange(e.target.value)}
-          className="w-full h-full min-h-[400px] pl-14 pr-4 py-4 bg-[#1e1e1e] text-gray-100 font-mono text-sm leading-6 resize-none focus:outline-none"
-          spellCheck={false}
-          placeholder="在这里编写你的C++代码..."
-        />
+        {/* Editor Container */}
+        <div className="relative min-h-[400px]">
+          {/* Syntax Highlighted Layer */}
+          <div
+            ref={highlightRef}
+            className="absolute inset-0 overflow-auto pointer-events-none font-mono text-sm leading-6"
+            style={{ padding: '1rem', paddingLeft: showLineNumbers ? '3.5rem' : '1rem' }}
+          >
+            <pre className="whitespace-pre-wrap break-words">
+              <code
+                dangerouslySetInnerHTML={{ __html: highlightCode(code) + '\n' }}
+              />
+              {/* Extra lines for visual space */}
+              {Array.from({ length: Math.max(0, 15 - lineNumbers.length) }).map((_, i) => (
+                <span key={i} className="text-gray-600">{' '}</span>
+              ))}
+            </pre>
+          </div>
+
+          {/* Actual Textarea - transparent but interactive */}
+          <textarea
+            ref={textareaRef}
+            value={code}
+            onChange={(e) => onChange(e.target.value)}
+            onKeyDown={handleKeyDown}
+            onScroll={handleScroll}
+            className="absolute inset-0 w-full h-full min-h-[400px] bg-transparent text-transparent caret-white font-mono text-sm leading-6 resize-none focus:outline-none pl-14 pr-4 py-4"
+            spellCheck={false}
+            placeholder="在这里编写你的C++代码..."
+            style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}
+          />
+        </div>
       </div>
 
       {/* Action Buttons */}
-      <div className="flex items-center justify-between bg-gray-800 px-4 py-3 rounded-b-xl">
+      <div className="flex items-center justify-between bg-gray-800 px-4 py-3 rounded-b-xl mt-1">
         <button
           onClick={onShowHint}
           disabled={currentHint >= hints.length}
@@ -132,7 +245,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
             {error ? '❌ 错误' : '✅ 输出'}
           </div>
           <div className={`
-            p-4 font-mono text-sm max-h-48 overflow-auto
+            p-4 font-mono text-sm max-h-48 overflow-auto whitespace-pre-wrap
             ${error ? 'bg-red-500/10 text-red-300' : 'bg-adventure-500/10 text-gray-100'}
           `}>
             {error || output}
