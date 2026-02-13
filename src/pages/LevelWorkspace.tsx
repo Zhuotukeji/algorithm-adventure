@@ -443,13 +443,6 @@ ${translated.message}
                       <div className="text-xs text-adventure-200">魔法石</div>
                     </div>
                   </div>
-                  <button
-                    onClick={handleNextLevel}
-                    className="w-full bg-white text-adventure-600 py-3 rounded-lg font-bold hover:bg-adventure-50 transition-colors flex items-center justify-center space-x-2"
-                  >
-                    <span>下一关</span>
-                    <ChevronRight className="w-5 h-5" />
-                  </button>
                 </div>
               </div>
             )}

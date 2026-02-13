@@ -124,7 +124,9 @@ int main() {
     return 0;
 }`,
         testCases: [
-          { input: '', expectedOutput: 'Hello, Magic World!', description: '输出 Hello, Magic World!' }
+          { input: '', expectedOutput: 'Hello, Magic World!', description: '输出 Hello, Magic World!' },
+          { input: '', expectedOutput: 'Hello', description: '输出 Hello' },
+          { input: '', expectedOutput: 'Magic', description: '输出 Magic' }
         ],
         hints: [
           '使用 cout << 来输出文字',
@@ -166,7 +168,9 @@ int main() {
     return 0;
 }`,
         testCases: [
-          { input: '', expectedOutput: '10', description: '输出 age 的值' }
+          { input: '', expectedOutput: '10', description: '输出 age 的值' },
+          { input: '', expectedOutput: '15', description: '变量值为15' },
+          { input: '', expectedOutput: '20', description: '变量值为20' }
         ],
         hints: [
           '使用 "int" 来创建整数变量',
@@ -205,7 +209,9 @@ int main() {
     return 0;
 }`,
         testCases: [
-          { input: '', expectedOutput: '8', description: '输出 5+3 的结果' }
+          { input: '', expectedOutput: '8', description: '输出 5+3 的结果' },
+          { input: '', expectedOutput: '15', description: '输出 10+5 的结果' },
+          { input: '', expectedOutput: '100', description: '输出 50+50 的结果' }
         ],
         hints: [
           '直接用 + 号进行加法运算',
@@ -243,7 +249,9 @@ int main() {
     return 0;
 }`,
         testCases: [
-          { input: '', expectedOutput: '7', description: '输出 10-3 的结果' }
+          { input: '', expectedOutput: '7', description: '输出 10-3 的结果' },
+          { input: '', expectedOutput: '5', description: '输出 8-3 的结果' },
+          { input: '', expectedOutput: '20', description: '输出 50-30 的结果' }
         ],
         hints: [
           '直接用 - 号进行减法运算',
@@ -281,7 +289,9 @@ int main() {
     return 0;
 }`,
         testCases: [
-          { input: '', expectedOutput: '42', description: '输出 6*7 的结果' }
+          { input: '', expectedOutput: '42', description: '输出 6*7 的结果' },
+          { input: '', expectedOutput: '20', description: '输出 4*5 的结果' },
+          { input: '', expectedOutput: '100', description: '输出 10*10 的结果' }
         ],
         hints: [
           '用 * 号进行乘法运算',
@@ -631,7 +641,9 @@ int main() {
     return 0;
 }`,
         testCases: [
-          { input: '', expectedOutput: '1\n2\n3\n4\n5\n', description: '输出1到5' }
+          { input: '', expectedOutput: '1\n2\n3\n4\n5\n', description: '输出1到5' },
+          { input: '', expectedOutput: '1\n2\n3\n', description: '输出1到3' },
+          { input: '', expectedOutput: '1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n', description: '输出1到10' }
         ],
         hints: [
           'for循环格式：for(起始值; 条件; 步进)',
