@@ -2238,6 +2238,1279 @@ int main() {
         rewards: { experience: 280, magicStones: 120 }
       }
     ]
+  },
+  {
+    id: 11,
+    name: '更多函数魔法',
+    description: '深入学习函数的使用技巧',
+    icon: '🪄',
+    color: 'from-purple-500 to-indigo-500',
+    levels: [
+      {
+        id: '11-1',
+        chapterId: 11,
+        chapterName: '更多函数魔法',
+        name: '最大值函数',
+        description: '编写一个返回最大值的函数',
+        story: '奥兰多教你如何编写一个有用的函数——返回两个数中的最大值！这个函数在很多编程问题中都很有用。',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '编写一个函数，输入两个整数，返回较大的那个！'
+        },
+        difficulty: 'easy',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+// 编写一个函数，返回a和b中的最大值
+int maxValue(int a, int b) {
+    // 在这里填写代码
+}
+
+int main() {
+    cout << maxValue(5, 8) << endl;
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int maxValue(int a, int b) {
+    if (a > b) return a;
+    else return b;
+}
+
+int main() {
+    cout << maxValue(5, 8) << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '8', description: '5和8的最大值' },
+          { input: '', expectedOutput: '10', description: '10和3的最大值' },
+          { input: '', expectedOutput: '7', description: '7和7的最大值' }
+        ],
+        hints: [
+          '使用if判断哪个数更大',
+          'return语句返回结果'
+        ],
+        rewards: { experience: 150, magicStones: 50 }
+      },
+      {
+        id: '11-2',
+        chapterId: 11,
+        chapterName: '更多函数魔法',
+        name: '阶乘函数',
+        description: '使用函数计算阶乘',
+        story: '阶乘是一个有趣的数学运算。奥兰多教你用函数来实现阶乘计算！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '编写一个函数，计算n的阶乘！'
+        },
+        difficulty: 'medium',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+// 编写阶乘函数
+int factorial(int n) {
+    // 在这里填写代码
+}
+
+int main() {
+    cout << factorial(5) << endl;
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int factorial(int n) {
+    int result = 1;
+    for (int i = 1; i <= n; i++) {
+        result *= i;
+    }
+    return result;
+}
+
+int main() {
+    cout << factorial(5) << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '120', description: '5的阶乘' },
+          { input: '', expectedOutput: '6', description: '3的阶乘' },
+          { input: '', expectedOutput: '1', description: '0的阶乘' }
+        ],
+        hints: [
+          '阶乘是1×2×3×...×n',
+          '可以用循环累乘'
+        ],
+        rewards: { experience: 180, magicStones: 60 }
+      },
+      {
+        id: '11-3',
+        chapterId: 11,
+        chapterName: '更多函数魔法',
+        name: '判断素数',
+        description: '用函数判断一个数是否为素数',
+        story: '素数是只有1和它本身两个因子的数。奥兰多教你编写一个判断素数的函数！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '编写一个函数，判断n是否为素数！'
+        },
+        difficulty: 'medium',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+// 编写判断素数的函数
+bool isPrime(int n) {
+    // 在这里填写代码
+}
+
+int main() {
+    cout << isPrime(7) << endl;
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+bool isPrime(int n) {
+    if (n <= 1) return false;
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) return false;
+    }
+    return true;
+}
+
+int main() {
+    cout << isPrime(7) << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '1', description: '7是素数输出1' },
+          { input: '', expectedOutput: '0', description: '8不是素数输出0' },
+          { input: '', expectedOutput: '1', description: '11是素数输出1' }
+        ],
+        hints: [
+          '素数大于1',
+          '检查从2到sqrt(n)的因数'
+        ],
+        rewards: { experience: 200, magicStones: 70 }
+      },
+      {
+        id: '11-4',
+        chapterId: 11,
+        chapterName: '更多函数魔法',
+        name: '绝对值函数',
+        description: '编写计算绝对值的函数',
+        story: '绝对值表示一个数到0的距离。奥兰多教你编写一个计算绝对值的函数！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '编写一个函数，计算整数的绝对值！'
+        },
+        difficulty: 'easy',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+// 编写绝对值函数
+int absValue(int n) {
+    // 在这里填写代码
+}
+
+int main() {
+    cout << absValue(-5) << endl;
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int absValue(int n) {
+    if (n < 0) return -n;
+    return n;
+}
+
+int main() {
+    cout << absValue(-5) << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '5', description: '-5的绝对值' },
+          { input: '', expectedOutput: '3', description: '3的绝对值' },
+          { input: '', expectedOutput: '0', description: '0的绝对值' }
+        ],
+        hints: [
+          '负数的绝对值是它的相反数',
+          '正数和0的绝对值是它本身'
+        ],
+        rewards: { experience: 120, magicStones: 40 }
+      },
+      {
+        id: '11-5',
+        chapterId: 11,
+        chapterName: '更多函数魔法',
+        name: '幂函数',
+        description: '编写计算幂的函数',
+        story: '幂运算是乘方的逆运算。奥兰多教你编写一个计算幂的函数！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '编写一个函数，计算a的b次幂！'
+        },
+        difficulty: 'medium',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+// 编写幂函数
+int power(int a, int b) {
+    // 在这里填写代码
+}
+
+int main() {
+    cout << power(2, 10) << endl;
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int power(int a, int b) {
+    int result = 1;
+    for (int i = 0; i < b; i++) {
+        result *= a;
+    }
+    return result;
+}
+
+int main() {
+    cout << power(2, 10) << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '1024', description: '2的10次幂' },
+          { input: '', expectedOutput: '9', description: '3的2次幂' },
+          { input: '', expectedOutput: '1', description: '5的0次幂' }
+        ],
+        hints: [
+          'a的b次幂是a乘以a，b次',
+          '可以用循环累乘'
+        ],
+        rewards: { experience: 200, magicStones: 70 }
+      }
+    ]
+  },
+  {
+    id: 12,
+    name: '递归魔法入门',
+    description: '学习递归的基本概念',
+    icon: '🔮',
+    color: 'from-pink-500 to-rose-500',
+    levels: [
+      {
+        id: '12-1',
+        chapterId: 12,
+        chapterName: '递归魔法入门',
+        name: '递归初体验',
+        description: '理解什么是递归',
+        story: '递归是一种强大的编程技巧！一个函数可以调用自己来解决大问题。奥兰多带你入门递归！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '理解递归：从1累加到n，n-1累加到1...'
+        },
+        difficulty: 'medium',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+// 使用递归计算1到n的和
+int sumToN(int n) {
+    // 在这里填写代码
+}
+
+int main() {
+    cout << sumToN(10) << endl;
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int sumToN(int n) {
+    if (n == 1) return 1;
+    return n + sumToN(n - 1);
+}
+
+int main() {
+    cout << sumToN(10) << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '55', description: '1到10的和' },
+          { input: '', expectedOutput: '15', description: '1到5的和' },
+          { input: '', expectedOutput: '1', description: '1到1的和' }
+        ],
+        hints: [
+          '递归需要结束条件：n==1时返回1',
+          '其他情况返回n + sumToN(n-1)'
+        ],
+        rewards: { experience: 220, magicStones: 80 }
+      },
+      {
+        id: '12-2',
+        chapterId: 12,
+        chapterName: '递归魔法入门',
+        name: '递归求阶乘',
+        description: '用递归计算阶乘',
+        story: '阶乘是最经典的递归例子之一。奥兰多教你用递归来实现阶乘！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '用递归计算n的阶乘！'
+        },
+        difficulty: 'medium',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+// 使用递归计算阶乘
+int factorial(int n) {
+    // 在这里填写代码
+}
+
+int main() {
+    cout << factorial(5) << endl;
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int factorial(int n) {
+    if (n == 0 || n == 1) return 1;
+    return n * factorial(n - 1);
+}
+
+int main() {
+    cout << factorial(5) << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '120', description: '5的阶乘' },
+          { input: '', expectedOutput: '6', description: '3的阶乘' },
+          { input: '', expectedOutput: '1', description: '0的阶乘' }
+        ],
+        hints: [
+          '递归结束条件：n==0或n==1时返回1',
+          '其他情况返回n * factorial(n-1)'
+        ],
+        rewards: { experience: 220, magicStones: 80 }
+      },
+      {
+        id: '12-3',
+        chapterId: 12,
+        chapterName: '递归魔法入门',
+        name: '递归求幂',
+        description: '用递归计算幂',
+        story: '幂运算也可以用递归来实现！奥兰多教你怎么做！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '用递归计算a的b次幂！'
+        },
+        difficulty: 'hard',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+// 使用递归计算幂
+int power(int a, int b) {
+    // 在这里填写代码
+}
+
+int main() {
+    cout << power(2, 8) << endl;
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int power(int a, int b) {
+    if (b == 0) return 1;
+    return a * power(a, b - 1);
+}
+
+int main() {
+    cout << power(2, 8) << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '256', description: '2的8次幂' },
+          { input: '', expectedOutput: '27', description: '3的3次幂' },
+          { input: '', expectedOutput: '1', description: '5的0次幂' }
+        ],
+        hints: [
+          '递归结束条件：b==0时返回1',
+          '其他情况返回a * power(a, b-1)'
+        ],
+        rewards: { experience: 280, magicStones: 100 }
+      },
+      {
+        id: '12-4',
+        chapterId: 12,
+        chapterName: '递归魔法入门',
+        name: '递归反转数字',
+        description: '用递归反转数字',
+        story: '递归还可以用来反转数字！奥兰多教你这个有趣的技巧！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '用递归反转一个数字的各位！'
+        },
+        difficulty: 'hard',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+// 使用递归反转数字
+int reverseNum(int n) {
+    // 在这里填写代码
+}
+
+int main() {
+    cout << reverseNum(12345) << endl;
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int reverseNum(int n) {
+    if (n < 10) return n;
+    return (n % 10) * (int)pow(10, (int)log10(n)) + reverseNum(n / 10);
+}
+
+int main() {
+    cout << reverseNum(12345) << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '54321', description: '反转12345' },
+          { input: '', expectedOutput: '321', description: '反转123' },
+          { input: '', expectedOutput: '7', description: '反转7' }
+        ],
+        hints: [
+          '递归结束条件：n<10时返回n',
+          '其他情况返回 最高位 + 反转剩余位'
+        ],
+        rewards: { experience: 300, magicStones: 110 }
+      }
+    ]
+  },
+  {
+    id: 13,
+    name: '结构体魔法',
+    description: '学习使用结构体组织数据',
+    icon: '📦',
+    color: 'from-amber-500 to-orange-500',
+    levels: [
+      {
+        id: '13-1',
+        chapterId: 13,
+        chapterName: '结构体魔法',
+        name: '创建结构体',
+        description: '定义第一个结构体',
+        story: '结构体可以把不同类型的数据组合在一起。奥兰多教你如何创建结构体！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '创建一个学生结构体，包含姓名和年龄！'
+        },
+        difficulty: 'easy',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+#include <string>
+using namespace std;
+
+// 定义学生结构体
+struct Student {
+    // 在这里添加成员
+};
+
+int main() {
+    Student s;
+    s.name = "小明";
+    s.age = 10;
+    cout << s.name << " " << s.age << endl;
+    return 0;
+}`,
+        solution: `#include <iostream>
+#include <string>
+using namespace std;
+
+struct Student {
+    string name;
+    int age;
+};
+
+int main() {
+    Student s;
+    s.name = "小明";
+    s.age = 10;
+    cout << s.name << " " << s.age << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '小明 10', description: '输出学生信息' }
+        ],
+        hints: [
+          '在结构体内部定义成员变量',
+          '类型可以是string或int'
+        ],
+        rewards: { experience: 150, magicStones: 50 }
+      },
+      {
+        id: '13-2',
+        chapterId: 13,
+        chapterName: '结构体魔法',
+        name: '结构体数组',
+        description: '使用结构体数组存储多个学生',
+        story: '结构体可以组成数组，用来存储大量相似的数据。奥兰多教你使用结构体数组！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '创建一个学生数组，存储3个学生！'
+        },
+        difficulty: 'medium',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+#include <string>
+using namespace std;
+
+struct Student {
+    string name;
+    int age;
+};
+
+int main() {
+    Student students[3];
+    students[0].name = "小明";
+    students[0].age = 10;
+    students[1].name = "小红";
+    students[1].age = 11;
+    students[2].name = "小刚";
+    students[2].age = 10;
+
+    for (int i = 0; i < 3; i++) {
+        cout << students[i].name << " ";
+    }
+    cout << endl;
+    return 0;
+}`,
+        solution: `#include <iostream>
+#include <string>
+using namespace std;
+
+struct Student {
+    string name;
+    int age;
+};
+
+int main() {
+    Student students[3];
+    students[0].name = "小明";
+    students[0].age = 10;
+    students[1].name = "小红";
+    students[1].age = 11;
+    students[2].name = "小刚";
+    students[2].age = 10;
+
+    for (int i = 0; i < 3; i++) {
+        cout << students[i].name << " ";
+    }
+    cout << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '小明 小红 小刚 ', description: '输出三个学生的名字' }
+        ],
+        hints: [
+          '使用数组下标访问结构体元素',
+          '用.运算符访问成员'
+        ],
+        rewards: { experience: 180, magicStones: 60 }
+      },
+      {
+        id: '13-3',
+        chapterId: 13,
+        chapterName: '结构体魔法',
+        name: '结构体函数',
+        description: '将结构体作为函数参数',
+        story: '结构体可以作为函数的参数和返回值。奥兰多教你这种强大的用法！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '编写一个函数，接受学生结构体并显示信息！'
+        },
+        difficulty: 'medium',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+#include <string>
+using namespace std;
+
+struct Student {
+    string name;
+    int age;
+};
+
+// 编写打印学生信息的函数
+void printStudent(Student s) {
+    // 在这里填写代码
+}
+
+int main() {
+    Student s;
+    s.name = "小明";
+    s.age = 10;
+    printStudent(s);
+    return 0;
+}`,
+        solution: `#include <iostream>
+#include <string>
+using namespace std;
+
+struct Student {
+    string name;
+    int age;
+};
+
+void printStudent(Student s) {
+    cout << s.name << "今年" << s.age << "岁" << endl;
+}
+
+int main() {
+    Student s;
+    s.name = "小明";
+    s.age = 10;
+    printStudent(s);
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '小明今年10岁', description: '输出学生信息' }
+        ],
+        hints: [
+          '函数参数类型是Student',
+          '用cout输出成员信息'
+        ],
+        rewards: { experience: 200, magicStones: 70 }
+      },
+      {
+        id: '13-4',
+        chapterId: 13,
+        chapterName: '结构体魔法',
+        name: '点坐标结构体',
+        description: '创建点坐标结构体并计算距离',
+        story: '结构体非常适合表示几何点。奥兰多教你创建一个点结构体并计算两点距离！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '创建点结构体，计算两点间的距离！'
+        },
+        difficulty: 'medium',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+#include <cmath>
+using namespace std;
+
+struct Point {
+    int x;
+    int y;
+};
+
+// 计算两点距离
+double distance(Point a, Point b) {
+    // 在这里填写代码
+}
+
+int main() {
+    Point p1 = {0, 0};
+    Point p2 = {3, 4};
+    cout << distance(p1, p2) << endl;
+    return 0;
+}`,
+        solution: `#include <iostream>
+#include <cmath>
+using namespace std;
+
+struct Point {
+    int x;
+    int y;
+};
+
+double distance(Point a, Point b) {
+    int dx = a.x - b.x;
+    int dy = a.y - b.y;
+    return sqrt(dx*dx + dy*dy);
+}
+
+int main() {
+    Point p1 = {0, 0};
+    Point p2 = {3, 4};
+    cout << distance(p1, p2) << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '5', description: '距离是5' },
+          { input: '', expectedOutput: '10', description: '(0,0)到(6,8)的距离' }
+        ],
+        hints: [
+          '使用勾股定理：距离=sqrt(dx²+dy²)',
+          '使用sqrt函数需要包含cmath'
+        ],
+        rewards: { experience: 220, magicStones: 80 }
+      }
+    ]
+  },
+  {
+    id: 14,
+    name: '指针魔法',
+    description: '探索指针的神奇世界',
+    icon: '🎯',
+    color: 'from-cyan-500 to-blue-500',
+    levels: [
+      {
+        id: '14-1',
+        chapterId: 14,
+        chapterName: '指针魔法',
+        name: '指针初体验',
+        description: '理解什么是指针',
+        story: '指针是C++最强大的特性之一。奥兰多带你初步认识指针！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '创建一个指针，指向一个变量！'
+        },
+        difficulty: 'medium',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+int main() {
+    int num = 42;
+    int* ptr = &num;
+
+    // 输出num的值和ptr指向的值
+    cout << num << " " << *ptr << endl;
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    int num = 42;
+    int* ptr = &num;
+
+    cout << num << " " << *ptr << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '42 42', description: '输出值和指针指向的值' }
+        ],
+        hints: [
+          '用*定义指针类型',
+          '用&获取变量地址',
+          '用*ptr访问指针指向的值'
+        ],
+        rewards: { experience: 180, magicStones: 60 }
+      },
+      {
+        id: '14-2',
+        chapterId: 14,
+        chapterName: '指针魔法',
+        name: '指针运算',
+        description: '使用指针遍历数组',
+        story: '指针可以和数组一起使用，用指针遍历数组非常高效。奥兰多教你怎么做！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '用指针遍历数组并求和！'
+        },
+        difficulty: 'medium',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[] = {1, 2, 3, 4, 5};
+    int* p = arr;
+    int sum = 0;
+
+    // 用指针遍历数组求和
+    for (int i = 0; i < 5; i++) {
+        // 在这里填写代码
+    }
+
+    cout << sum << endl;
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[] = {1, 2, 3, 4, 5};
+    int* p = arr;
+    int sum = 0;
+
+    for (int i = 0; i < 5; i++) {
+        sum += *(p + i);
+    }
+
+    cout << sum << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '15', description: '数组元素之和' }
+        ],
+        hints: [
+          '数组名就是数组首地址',
+          '*(p+i)等价于p[i]'
+        ],
+        rewards: { experience: 220, magicStones: 80 }
+      },
+      {
+        id: '14-3',
+        chapterId: 14,
+        chapterName: '指针魔法',
+        name: '指针交换',
+        description: '用指针交换两个变量的值',
+        story: '指针可以让我们直接操作变量的地址。奥兰多教你用指针交换两个数！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '用指针作为函数参数交换两个数！'
+        },
+        difficulty: 'medium',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+void swap(int* a, int* b) {
+    // 在这里填写代码交换a和b
+}
+
+int main() {
+    int x = 5, y = 10;
+    swap(&x, &y);
+    cout << x << " " << y << endl;
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+void swap(int* a, int* b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int main() {
+    int x = 5, y = 10;
+    swap(&x, &y);
+    cout << x << " " << y << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '10 5', description: '交换后的值' }
+        ],
+        hints: [
+          '用临时变量保存*a的值',
+          '把*b赋值给*a',
+          '把临时变量赋值给*b'
+        ],
+        rewards: { experience: 220, magicStones: 80 }
+      },
+      {
+        id: '14-4',
+        chapterId: 14,
+        chapterName: '指针魔法',
+        name: '字符串指针',
+        description: '使用字符指针处理字符串',
+        story: 'C风格的字符串本质就是字符指针。奥兰多教你使用字符指针！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '用指针遍历字符串！'
+        },
+        difficulty: 'hard',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+int main() {
+    char str[] = "hello";
+    char* p = str;
+
+    // 用指针遍历并输出每个字符
+    while (*p != '\\0') {
+        cout << *p;
+        p++;
+    }
+    cout << endl;
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    char str[] = "hello";
+    char* p = str;
+
+    while (*p != '\\0') {
+        cout << *p;
+        p++;
+    }
+    cout << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: 'hello', description: '输出字符串' }
+        ],
+        hints: [
+          '字符串以\\0结尾',
+          '指针++移动到下一个字符'
+        ],
+        rewards: { experience: 250, magicStones: 90 }
+      }
+    ]
+  },
+  {
+    id: 15,
+    name: '综合大冒险',
+    description: '综合运用所有所学知识',
+    icon: '🏆',
+    color: 'from-yellow-500 to-amber-500',
+    levels: [
+      {
+        id: '15-1',
+        chapterId: 15,
+        chapterName: '综合大冒险',
+        name: '猜数字游戏',
+        description: '综合练习：实现猜数字游戏',
+        story: '是时候展示你所学的一切了！奥兰多让你用C++实现一个猜数字游戏！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '实现猜数字游戏，判断大小！'
+        },
+        difficulty: 'medium',
+        type: 'challenge',
+        codeTemplate: `#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+int main() {
+    srand(time(0));
+    int target = rand() % 100 + 1;
+    int guess;
+
+    // 实现猜数字逻辑
+    // 如果guess > target输出"大了"
+    // 如果guess < target输出"小了"
+    // 如果guess == target输出"猜对了"
+
+    return 0;
+}`,
+        solution: `#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+int main() {
+    srand(time(0));
+    int target = rand() % 100 + 1;
+    int guess = 50;
+
+    if (guess > target) cout << "大了" << endl;
+    else if (guess < target) cout << "小了" << endl;
+    else cout << "猜对了" << endl;
+
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '大了', description: 'guess > target' },
+          { input: '', expectedOutput: '小了', description: 'guess < target' },
+          { input: '', expectedOutput: '猜对了', description: 'guess == target' }
+        ],
+        hints: [
+          'rand()生成随机数',
+          '用if判断大小关系'
+        ],
+        rewards: { experience: 250, magicStones: 100 }
+      },
+      {
+        id: '15-2',
+        chapterId: 15,
+        chapterName: '综合大冒险',
+        name: '成绩管理系统',
+        description: '使用结构体管理学生成绩',
+        story: '综合练习：用结构体和数组实现一个简单的成绩管理系统！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '管理3个学生的成绩，计算平均分！'
+        },
+        difficulty: 'hard',
+        type: 'challenge',
+        codeTemplate: `#include <iostream>
+#include <string>
+using namespace std;
+
+struct Student {
+    string name;
+    int score;
+};
+
+int main() {
+    Student students[3];
+    students[0].name = "小明";
+    students[0].score = 95;
+    students[1].name = "小红";
+    students[1].score = 87;
+    students[2].name = "小刚";
+    students[2].score = 92;
+
+    // 计算平均分并输出
+    int sum = 0;
+    for (int i = 0; i < 3; i++) {
+        sum += students[i].score;
+    }
+    cout << sum / 3 << endl;
+    return 0;
+}`,
+        solution: `#include <iostream>
+#include <string>
+using namespace std;
+
+struct Student {
+    string name;
+    int score;
+};
+
+int main() {
+    Student students[3];
+    students[0].name = "小明";
+    students[0].score = 95;
+    students[1].name = "小红";
+    students[1].score = 87;
+    students[2].name = "小刚";
+    students[2].score = 92;
+
+    int sum = 0;
+    for (int i = 0; i < 3; i++) {
+        sum += students[i].score;
+    }
+    cout << sum / 3 << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '91', description: '平均分' }
+        ],
+        hints: [
+          '用循环累加分数',
+          '除以学生数量得到平均分'
+        ],
+        rewards: { experience: 300, magicStones: 120 }
+      },
+      {
+        id: '15-3',
+        chapterId: 15,
+        chapterName: '综合大冒险',
+        name: '素数判断器',
+        description: '综合练习：判断范围内的所有素数',
+        story: '用函数和循环找出某个范围内的所有素数！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '找出1到20中的所有素数！'
+        },
+        difficulty: 'hard',
+        type: 'challenge',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+// 判断素数的函数
+bool isPrime(int n) {
+    if (n <= 1) return false;
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) return false;
+    }
+    return true;
+}
+
+int main() {
+    // 输出1到20中的素数
+    for (int i = 1; i <= 20; i++) {
+        if (isPrime(i)) {
+            cout << i << " ";
+        }
+    }
+    cout << endl;
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+bool isPrime(int n) {
+    if (n <= 1) return false;
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) return false;
+    }
+    return true;
+}
+
+int main() {
+    for (int i = 1; i <= 20; i++) {
+        if (isPrime(i)) {
+            cout << i << " ";
+        }
+    }
+    cout << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '2 3 5 7 11 13 17 19 ', description: '1到20的素数' }
+        ],
+        hints: [
+          '使用isPrime函数判断每个数',
+          '用循环遍历1到20'
+        ],
+        rewards: { experience: 300, magicStones: 120 }
+      },
+      {
+        id: '15-4',
+        chapterId: 15,
+        chapterName: '综合大冒险',
+        name: '排序挑战',
+        description: '使用选择排序对数组排序',
+        story: '选择排序是最简单的排序算法之一。奥兰多让你用选择排序来排序数组！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '用选择排序对数组进行升序排列！'
+        },
+        difficulty: 'hard',
+        type: 'challenge',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[] = {64, 25, 12, 22, 11};
+    int n = 5;
+
+    // 选择排序
+    for (int i = 0; i < n - 1; i++) {
+        int minIdx = i;
+        for (int j = i + 1; j < n; j++) {
+            if (arr[j] < arr[minIdx]) {
+                minIdx = j;
+            }
+        }
+        swap(arr[i], arr[minIdx]);
+    }
+
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[] = {64, 25, 12, 22, 11};
+    int n = 5;
+
+    for (int i = 0; i < n - 1; i++) {
+        int minIdx = i;
+        for (int j = i + 1; j < n; j++) {
+            if (arr[j] < arr[minIdx]) {
+                minIdx = j;
+            }
+        }
+        swap(arr[i], arr[minIdx]);
+    }
+
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '11 12 22 25 64 ', description: '排序结果' }
+        ],
+        hints: [
+          '找出未排序部分的最小值',
+          '与当前位置交换'
+        ],
+        rewards: { experience: 320, magicStones: 130 }
+      },
+      {
+        id: '15-5',
+        chapterId: 15,
+        chapterName: '综合大冒险',
+        name: '斐波那契数列',
+        description: '用递归和循环两种方式实现斐波那契',
+        story: '斐波那契数列是一个经典数列。奥兰多让你用递归来实现它！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '用递归实现斐波那契数列！'
+        },
+        difficulty: 'hard',
+        type: 'challenge',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+// 递归实现斐波那契
+int fibonacci(int n) {
+    // 在这里填写代码
+}
+
+int main() {
+    for (int i = 1; i <= 10; i++) {
+        cout << fibonacci(i) << " ";
+    }
+    cout << endl;
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int fibonacci(int n) {
+    if (n <= 2) return 1;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+int main() {
+    for (int i = 1; i <= 10; i++) {
+        cout << fibonacci(i) << " ";
+    }
+    cout << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '1 1 2 3 5 8 13 21 34 55 ', description: '前10项' }
+        ],
+        hints: [
+          '递归结束条件：n<=2时返回1',
+          '其他情况返回fibonacci(n-1)+fibonacci(n-2)'
+        ],
+        rewards: { experience: 350, magicStones: 150 }
+      }
+    ]
   }
 ];
 
@@ -2264,13 +3537,22 @@ export const achievements = [
   { id: 'search-master', name: '查找大师', description: '掌握二分查找', icon: '🔍', unlockedAt: undefined },
   { id: 'week-streak', name: '坚持不懈', description: '连续学习7天', icon: '🔥', unlockedAt: undefined },
   { id: 'pet-trainer', name: '宠物大师', description: '培养所有宠物到满级', icon: '🎓', unlockedAt: undefined },
+  { id: 'recursion-master', name: '递归大师', description: '掌握递归魔法', icon: '🔮', unlockedAt: undefined },
+  { id: 'struct-hero', name: '结构体英雄', description: '掌握结构体魔法', icon: '📦', unlockedAt: undefined },
+  { id: 'pointer-pro', name: '指针专家', description: '掌握指针魔法', icon: '🎯', unlockedAt: undefined },
+  { id: 'chapter-15-hero', name: '综合英雄', description: '完成综合大冒险', icon: '🏅', unlockedAt: undefined },
+  { id: 'all-chapters', name: '全章通关', description: '完成所有章节', icon: '👑', unlockedAt: undefined },
 ];
 
 export const pets = [
   { id: 'pet-1', name: '变量兔', type: 'rabbit', level: 1, exp: 0, image: '🐰', skills: ['变量理解', '数据类型'] },
   { id: 'pet-2', name: '循环鹰', type: 'eagle', level: 1, exp: 0, image: '🦅', skills: ['循环理解', '迭代思维'] },
-  { id: 'pet-3', name: '指针猫', type: 'cat', level: 1, exp: 0, image: '🐱', skills: ['数组理解', '内存概念'] },
+  { id: 'pet-3', name: '数组猫', type: 'cat', level: 1, exp: 0, image: '🐱', skills: ['数组理解', '索引思维'] },
   { id: 'pet-4', name: '排序龙', type: 'dragon', level: 1, exp: 0, image: '🐉', skills: ['排序算法', '比较思维'] },
   { id: 'pet-5', name: '函数狐', type: 'fox', level: 1, exp: 0, image: '🦊', skills: ['函数封装', '代码复用'] },
   { id: 'pet-6', name: '查找狼', type: 'wolf', level: 1, exp: 0, image: '🐺', skills: ['查找算法', '二分思维'] },
+  { id: 'pet-7', name: '递归龟', type: 'turtle', level: 1, exp: 0, image: '🐢', skills: ['递归思维', '自调用'] },
+  { id: 'pet-8', name: '结构体熊', type: 'bear', level: 1, exp: 0, image: '🐻', skills: ['结构封装', '数据组织'] },
+  { id: 'pet-9', name: '指针蛇', type: 'snake', level: 1, exp: 0, image: '🐍', skills: ['指针操作', '内存管理'] },
+  { id: 'pet-10', name: '综合狮', type: 'lion', level: 1, exp: 0, image: '🦁', skills: ['综合应用', '问题解决'] },
 ];
