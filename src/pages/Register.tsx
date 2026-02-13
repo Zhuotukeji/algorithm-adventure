@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth, avatarOptions } from '../context/AuthContext';
-import { GameHeader } from '../components/GameHeader';
+import GameHeader from '../components/GameHeader';
 import { ArrowRight, User, Lock, Mail, Sparkles, Check } from 'lucide-react';
 
 const Register: React.FC = () => {
