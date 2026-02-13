@@ -15,12 +15,12 @@ const errorTranslations: ErrorTranslation[] = [
     tip: '检查一下每句话后面有没有加 ; 这个小尾巴~'
   },
   {
-    original: /error: expected '}' before/i,
+    original: /error: expected \} before/i,
     kidFriendly: '大括号（{}）没有配对好！',
     tip: '每个 { 都要有一个 } 和它对应，就像括号配对一样~'
   },
   {
-    original: /error: expected ')' before/i,
+    original: /error: expected \) before/i,
     kidFriendly: '小括号（()）少了一个！',
     tip: '检查一下 ( 后面有没有对应的 ) ~'
   },
@@ -30,7 +30,7 @@ const errorTranslations: ErrorTranslation[] = [
     tip: '可能是一个变量名或者数字哦~'
   },
   {
-    original: /error: '.*' was not declared in scope/i,
+    original: /error: .* was not declared in scope/i,
     kidFriendly: '这个变量好像还没定义呢！',
     tip: '用之前要先声明变量哦，比如：int x;'
   },
@@ -45,12 +45,12 @@ const errorTranslations: ErrorTranslation[] = [
     tip: 'int和string不能直接相加哦~'
   },
   {
-    original: /error: 'cout' was not declared/i,
+    original: /error: cout was not declared/i,
     kidFriendly: '要用 cout 输出，可别忘了头文件！',
     tip: '记得在最前面加 #include <iostream> 哦~'
   },
   {
-    original: /error: 'cin' was not declared/i,
+    original: /error: cin was not declared/i,
     kidFriendly: '要用 cin 读输入，别忘了头文件！',
     tip: '记得在最前面加 #include <iostream> 哦~'
   },
@@ -72,7 +72,7 @@ const errorTranslations: ErrorTranslation[] = [
     tip: '换一个名字，或者看看之前是不是已经定义过了~'
   },
   {
-    original: /error: 'main' must return 'int'/i,
+    original: /error: main must return int/i,
     kidFriendly: 'main函数要返回一个整数！',
     tip: '在main函数最后加上 return 0; 哦~'
   },
