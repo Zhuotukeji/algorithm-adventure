@@ -1196,6 +1196,357 @@ int main() {
         rewards: { experience: 250, magicStones: 100 }
       }
     ]
+  },
+  {
+    id: 9,
+    name: '字符串魔法',
+    description: '学习字符串处理',
+    icon: '📝',
+    color: 'from-violet-500 to-purple-500',
+    levels: [
+      {
+        id: '9-1',
+        chapterId: 9,
+        chapterName: '字符串魔法',
+        name: '字符串基础',
+        description: '学习C++字符串',
+        story: '奥兰多教你一种新的数据类型——字符串！字符串可以存储一串字符，就像一句话或者一个单词。',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '创建一个字符串并输出它！'
+        },
+        difficulty: 'easy',
+        type: 'tutorial',
+        codeTemplate: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    // 创建一个字符串变量
+
+    // 输出这个字符串
+
+    return 0;
+}`,
+        solution: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string name = "小法师";
+    cout << name << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '小法师', description: '输出字符串' }
+        ],
+        hints: [
+          '需要包含头文件 #include <string>',
+          '用string类型定义字符串',
+          '字符串需要用双引号包围'
+        ],
+        rewards: { experience: 100, magicStones: 30 }
+      },
+      {
+        id: '9-2',
+        chapterId: 9,
+        chapterName: '字符串连接',
+        name: '字符串拼接',
+        description: '学习连接字符串',
+        story: '字符串就像积木，可以拼接在一起！奥兰多教你如何把多个字符串合成一个。',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '把"Hello"和"World"连接起来输出！'
+        },
+        difficulty: 'easy',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string s1 = "Hello";
+    string s2 = "World";
+
+    // 用 + 号连接字符串并输出
+
+    return 0;
+}`,
+        solution: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string s1 = "Hello";
+    string s2 = "World";
+    cout << s1 + s2 << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: 'HelloWorld', description: '连接字符串' }
+        ],
+        hints: [
+          '用 + 号可以连接字符串',
+          '结果是一个新的字符串'
+        ],
+        rewards: { experience: 110, magicStones: 35 }
+      },
+      {
+        id: '9-3',
+        chapterId: 9,
+        chapterName: '字符串魔法',
+        name: '字符串长度',
+        description: '学习获取字符串长度',
+        story: '想知道一个字符串有多少个字符吗？可以用length()函数来获取！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '输出字符串"Programming"的长度！'
+        },
+        difficulty: 'easy',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string s = "Programming";
+
+    // 输出字符串的长度
+
+    return 0;
+}`,
+        solution: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string s = "Programming";
+    cout << s.length() << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '11', description: '输出长度11' }
+        ],
+        hints: [
+          '用 .length() 获取字符串长度',
+          '结果是字符的个数'
+        ],
+        rewards: { experience: 120, magicStones: 40 }
+      },
+      {
+        id: '9-4',
+        chapterId: 9,
+        chapterName: '字符串魔法',
+        name: '字符访问',
+        description: '访问字符串中的字符',
+        story: '字符串中的每个字符都有一个位置（索引），我们可以直接访问它们！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '输出字符串"Apple"的第一个字符！'
+        },
+        difficulty: 'easy',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string s = "Apple";
+
+    // 输出第一个字符 s[0]
+
+    return 0;
+}`,
+        solution: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string s = "Apple";
+    cout << s[0] << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: 'A', description: '输出A' }
+        ],
+        hints: [
+          '用 s[0] 访问第一个字符',
+          '索引从0开始！'
+        ],
+        rewards: { experience: 130, magicStones: 45 }
+      }
+    ]
+  },
+  {
+    id: 10,
+    name: '综合练习',
+    description: '综合运用所学知识',
+    icon: '🎯',
+    color: 'from-rose-500 to-red-500',
+    levels: [
+      {
+        id: '10-1',
+        chapterId: 10,
+        chapterName: '综合练习',
+        name: '计算器',
+        description: '综合练习：实现简单计算器',
+        story: '现在你已经学会了基础，让我们做一个综合练习——实现一个简单的计算器！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '实现一个计算器，可以做加减乘除！'
+        },
+        difficulty: 'medium',
+        type: 'challenge',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+int main() {
+    int a, b;
+    char op;
+    cin >> a >> op >> b;
+
+    // 根据 op 进行运算
+    // op 可以是 +, -, *, /
+
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    int a, b;
+    char op;
+    cin >> a >> op >> b;
+
+    if (op == '+') cout << a + b << endl;
+    else if (op == '-') cout << a - b << endl;
+    else if (op == '*') cout << a * b << endl;
+    else if (op == '/' && b != 0) cout << a / b << endl;
+
+    return 0;
+}`,
+        testCases: [
+          { input: '5 + 3', expectedOutput: '8', description: '加法' },
+          { input: '10 - 4', expectedOutput: '6', description: '减法' },
+          { input: '6 * 7', expectedOutput: '42', description: '乘法' }
+        ],
+        hints: [
+          '用if判断运算符',
+          '注意除法要检查除数不为0'
+        ],
+        rewards: { experience: 200, magicStones: 80 }
+      },
+      {
+        id: '10-2',
+        chapterId: 10,
+        chapterName: '综合练习',
+        name: '猜数字',
+        description: '综合练习：猜数字游戏',
+        story: '让我们做一个有趣的游戏——猜数字！计算机会想一个1-100的数字，你要猜中它！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '实现猜数字游戏，判断猜测是大还是小！'
+        },
+        difficulty: 'medium',
+        type: 'challenge',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+int main() {
+    int target = 50; // 目标数字
+    int guess;
+    cin >> guess;
+
+    // 如果 guess > target，输出 "大了"
+    // 如果 guess < target，输出 "小了"
+    // 如果 guess == target，输出 "正确"
+
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    int target = 50;
+    int guess;
+    cin >> guess;
+
+    if (guess > target) {
+        cout << "大了" << endl;
+    } else if (guess < target) {
+        cout << "小了" << endl;
+    } else {
+        cout << "正确" << endl;
+    }
+
+    return 0;
+}`,
+        testCases: [
+          { input: '60', expectedOutput: '大了', description: '大了' },
+          { input: '30', expectedOutput: '小了', description: '小了' },
+          { input: '50', expectedOutput: '正确', description: '正确' }
+        ],
+        hints: [
+          '用if-else判断大小关系',
+          '注意相等用 == '
+        ],
+        rewards: { experience: 220, magicStones: 90 }
+      },
+      {
+        id: '10-3',
+        chapterId: 10,
+        chapterName: '综合练习',
+        name: '求平均数',
+        description: '综合练习：求平均数',
+        story: '现在你需要帮助奥兰多计算班级同学的平均成绩！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '计算5个同学的平均成绩！'
+        },
+        difficulty: 'medium',
+        type: 'challenge',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+int main() {
+    int scores[5] = {85, 92, 78, 95, 88};
+
+    // 计算平均分并输出
+
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    int scores[5] = {85, 92, 78, 95, 88};
+    int sum = 0;
+
+    for (int i = 0; i < 5; i++) {
+        sum += scores[i];
+    }
+
+    cout << sum / 5.0 << endl;
+
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '87.6', description: '平均分87.6' }
+        ],
+        hints: [
+          '先求和，再除以数量',
+          '用5.0可以得到小数'
+        ],
+        rewards: { experience: 240, magicStones: 100 }
+      }
+    ]
   }
 ];
 

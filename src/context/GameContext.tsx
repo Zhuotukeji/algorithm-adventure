@@ -1,6 +1,7 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User, Level, LevelProgress, Achievement, Pet } from '../types';
 import { defaultUser, courseData, achievements as defaultAchievements, pets as defaultPets } from '../data/courseData';
+import { useAuth } from './AuthContext';
 
 interface GameContextType {
   user: User;
@@ -31,6 +32,7 @@ interface GameProviderProps {
 }
 
 export const GameProvider: React.FC<GameProviderProps> = ({ children }) => {
+  const { user: authUser, updateUserProgress } = useAuth();
   const [user, setUser] = useState<User>(defaultUser);
   const [currentLevel, setCurrentLevel] = useState<Level | null>(null);
   const [levelProgress, setLevelProgress] = useState<LevelProgress[]>(() => {
@@ -43,6 +45,36 @@ export const GameProvider: React.FC<GameProviderProps> = ({ children }) => {
   });
   const [achievements, setAchievements] = useState<Achievement[]>(defaultAchievements);
   const [pets, setPets] = useState<Pet[]>(defaultPets);
+
+  // Sync user with auth when authenticated
+  useEffect(() => {
+    if (authUser) {
+      setUser({
+        id: authUser.id,
+        username: authUser.username,
+        avatar: authUser.avatar,
+        level: authUser.level,
+        experience: authUser.experience,
+        magicStones: authUser.magicStones,
+        createdAt: authUser.createdAt,
+        streak: authUser.streak,
+        lastLoginDate: authUser.lastLoginDate
+      });
+    }
+  }, [authUser]);
+
+  // Sync game progress back to auth when updated
+  useEffect(() => {
+    if (authUser) {
+      updateUserProgress({
+        level: user.level,
+        experience: user.experience,
+        magicStones: user.magicStones,
+        streak: user.streak,
+        lastLoginDate: user.lastLoginDate
+      });
+    }
+  }, [user.level, user.experience, user.magicStones, user.streak, user.lastLoginDate]);
 
   const completeLevel = (levelId: string, code: string) => {
     setLevelProgress(prev => prev.map(progress =>
