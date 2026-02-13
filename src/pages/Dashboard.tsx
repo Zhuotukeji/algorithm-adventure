@@ -1,6 +1,7 @@
 import React from 'react';
 import GameHeader from '../components/GameHeader';
 import ChapterMap from '../components/ChapterMap';
+import DailyChallenges from '../components/DailyChallenges';
 import { useGame } from '../context/GameContext';
 import { Trophy, Target, Flame, Gift, PawPrint } from 'lucide-react';
 
@@ -29,6 +30,9 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* Daily Challenges */}
+        <DailyChallenges />
 
         {/* Stats Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
@@ -110,21 +114,44 @@ const Dashboard: React.FC = () => {
               <PawPrint className="w-6 h-6 mr-2 text-adventure-500" />
               魔法宠物
             </h3>
+            <span className="text-sm text-gray-500">{pets.length} 只宠物</span>
           </div>
-          <div className="flex flex-wrap gap-4">
-            {pets.map(pet => (
-              <div
-                key={pet.id}
-                className="flex items-center space-x-3 bg-gradient-to-br from-adventure-50 to-adventure-100 rounded-xl p-3 border border-adventure-200"
-              >
-                <span className="text-4xl">{pet.image}</span>
-                <div>
-                  <div className="font-bold text-gray-800">{pet.name}</div>
-                  <div className="text-xs text-gray-600">等级 {pet.level}</div>
-                  <div className="text-xs text-primary-600">{pet.skills[0]}</div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            {pets.map(pet => {
+              const expToNextLevel = pet.level * 100;
+              const expProgress = (pet.exp / expToNextLevel) * 100;
+
+              return (
+                <div
+                  key={pet.id}
+                  className="bg-gradient-to-br from-adventure-50 to-adventure-100 rounded-xl p-4 border border-adventure-200 hover:shadow-lg transition-all hover:scale-105"
+                >
+                  <div className="text-center">
+                    <div className="text-5xl mb-2 animate-float">{pet.image}</div>
+                    <div className="font-bold text-gray-800 text-sm">{pet.name}</div>
+                    <div className="text-xs text-gray-600 mb-2">等级 {pet.level}</div>
+
+                    {/* Experience Progress Bar */}
+                    <div className="w-full bg-gray-200 rounded-full h-1.5 mb-1">
+                      <div
+                        className="bg-gradient-to-r from-primary-500 to-magic-500 h-1.5 rounded-full transition-all"
+                        style={{ width: `${expProgress}%` }}
+                      />
+                    </div>
+                    <div className="text-xs text-gray-500">{pet.exp}/{expToNextLevel} 经验</div>
+
+                    {/* Skills */}
+                    <div className="mt-2 flex flex-wrap justify-center gap-1">
+                      {pet.skills.map((skill, idx) => (
+                        <span key={idx} className="px-1.5 py-0.5 bg-white/50 rounded text-xs text-adventure-600">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 

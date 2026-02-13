@@ -1,4 +1,90 @@
-import { Chapter } from '../types';
+import { Chapter, DailyChallenge } from '../types';
+
+export const dailyChallenges: DailyChallenge[] = [
+  {
+    id: 'daily-1',
+    date: new Date().toISOString().split('T')[0],
+    title: '今日挑战：完美平方',
+    description: '写一个程序，判断一个数是不是完全平方数',
+    difficulty: 'medium',
+    codeTemplate: `#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    // 判断 n 是不是完全平方数
+    // 如果是，输出 "是"
+    // 如果不是，输出 "否"
+
+    return 0;
+}`,
+    solution: `#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    int sqrtN = sqrt(n);
+    if (sqrtN * sqrtN == n) {
+        cout << "是" << endl;
+    } else {
+        cout << "否" << endl;
+    }
+
+    return 0;
+}`,
+    testCases: [
+      { input: '16', expectedOutput: '是', description: '16是完全平方数' },
+      { input: '15', expectedOutput: '否', description: '15不是完全平方数' }
+    ],
+    rewards: { experience: 150, magicStones: 50 },
+    completed: false
+  },
+  {
+    id: 'daily-2',
+    date: new Date(Date.now() - 86400000).toISOString().split('T')[0],
+    title: '昨日挑战：数字反转',
+    description: '反转一个三位数的各位数字',
+    difficulty: 'easy',
+    codeTemplate: `#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    // 反转 n 的各位数字并输出
+    // 例如：123 -> 321
+
+    return 0;
+}`,
+    solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    int a = n / 100;
+    int b = (n / 10) % 10;
+    int c = n % 10;
+
+    cout << c * 100 + b * 10 + a << endl;
+
+    return 0;
+}`,
+    testCases: [
+      { input: '123', expectedOutput: '321', description: '反转123' }
+    ],
+    rewards: { experience: 100, magicStones: 30 },
+    completed: true
+  }
+];
 
 export const courseData: Chapter[] = [
   {
@@ -432,6 +518,101 @@ int main() {
           'sum = sum + i 可以写成 sum += i'
         ],
         rewards: { experience: 130, magicStones: 50 }
+      },
+      {
+        id: '4-3',
+        chapterId: 4,
+        chapterName: '循环魔法',
+        name: '数数游戏',
+        description: '学习while循环',
+        story: '奥兰多教你另一种循环——while循环！while循环就像一个哨兵，一直重复直到满足某个条件才停止。',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '用while循环输出1到5！'
+        },
+        difficulty: 'medium',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+int main() {
+    int i = 1;
+
+    // 用 while 循环输出 1 到 5
+
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    int i = 1;
+
+    while (i <= 5) {
+        cout << i << endl;
+        i++;
+    }
+
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '1\n2\n3\n4\n5\n', description: '输出1到5' }
+        ],
+        hints: [
+          'while循环格式：while(条件){ 循环体 }',
+          '记得在循环体里改变条件，否则会无限循环！',
+          'i++ 让 i 越来越大，最终会超过5'
+        ],
+        rewards: { experience: 140, magicStones: 55 }
+      },
+      {
+        id: '4-4',
+        chapterId: 4,
+        chapterName: '循环魔法',
+        name: '乘法表',
+        description: '双重循环训练',
+        story: '你已经掌握了单层循环，现在让我们学习双重循环！就像时钟一样，分钟走完一圈，小时才走一格。',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '用双重循环输出1到5的乘法表！'
+        },
+        difficulty: 'hard',
+        type: 'challenge',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+int main() {
+    // 用双重循环输出 1*1 到 5*5 的乘法表
+    // 格式：
+    // 1 2 3 4 5
+    // 2 4 6 8 10
+    // ...
+
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    for (int i = 1; i <= 5; i++) {
+        for (int j = 1; j <= 5; j++) {
+            cout << i * j << " ";
+        }
+        cout << endl;
+    }
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '1 2 3 4 5 \n2 4 6 8 10 \n3 6 9 12 15 \n4 8 12 16 20 \n5 10 15 20 25 \n', description: '输出5x5乘法表' }
+        ],
+        hints: [
+          '需要两个for循环嵌套',
+          '外层循环控制行，内层循环控制列',
+          '输出 i*j 表示第i行第j列的值'
+        ],
+        rewards: { experience: 180, magicStones: 70 }
       }
     ]
   },
@@ -540,6 +721,56 @@ int main() {
           '用 if (arr[i] > max)'
         ],
         rewards: { experience: 150, magicStones: 60 }
+      },
+      {
+        id: '5-3',
+        chapterId: 5,
+        chapterName: '数组宝库',
+        name: '数组求和',
+        description: '用数组求总和',
+        story: '数组不仅可以存储数据，还可以帮助我们处理大量数据！现在让我们用数组来计算一组数的总和。',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '计算数组中所有元素的和！'
+        },
+        difficulty: 'medium',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[5] = {10, 20, 30, 40, 50};
+    int sum = 0;
+
+    // 用循环计算数组所有元素的和
+
+    // 输出 sum
+
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[5] = {10, 20, 30, 40, 50};
+    int sum = 0;
+
+    for (int i = 0; i < 5; i++) {
+        sum += arr[i];
+    }
+
+    cout << sum << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '150', description: '求和结果' }
+        ],
+        hints: [
+          '用for循环遍历数组',
+          'sum += arr[i] 等价于 sum = sum + arr[i]'
+        ],
+        rewards: { experience: 160, magicStones: 65 }
       }
     ]
   },
@@ -617,6 +848,352 @@ int main() {
           '内层循环比较相邻元素并交换'
         ],
         rewards: { experience: 200, magicStones: 80 }
+      },
+      {
+        id: '6-2',
+        chapterId: 6,
+        chapterName: '排序秘籍',
+        name: '选择排序',
+        description: '学习选择排序算法',
+        story: '奥兰多介绍另一种排序魔法——选择排序！选择排序就像从一堆牌里每次选出最小（或最大）的牌，按顺序排好。',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '实现选择排序，将数组按从小到大排序！'
+        },
+        difficulty: 'hard',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+void printArray(int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
+
+int main() {
+    int arr[6] = {64, 25, 12, 22, 11};
+    int n = 6;
+
+    // 实现选择排序
+
+    printArray(arr, n);
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+void printArray(int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
+
+int main() {
+    int arr[6] = {64, 25, 12, 22, 11};
+    int n = 5;
+
+    for (int i = 0; i < n-1; i++) {
+        int minIdx = i;
+        for (int j = i+1; j < n; j++) {
+            if (arr[j] < arr[minIdx]) {
+                minIdx = j;
+            }
+        }
+        swap(arr[i], arr[minIdx]);
+    }
+
+    printArray(arr, n);
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '11 12 22 25 64 ', description: '排序结果' }
+        ],
+        hints: [
+          '选择排序：每次找出剩余部分的最小值',
+          '记录最小值的位置minIdx',
+          '循环结束后交换'
+        ],
+        rewards: { experience: 220, magicStones: 90 }
+      },
+      {
+        id: '6-3',
+        chapterId: 6,
+        chapterName: '排序秘籍',
+        name: '查找宝藏',
+        description: '学习线性查找',
+        story: '排序很重要，但有时候我们需要在混乱中寻找目标！奥兰多教你线性查找——就像在一堆玩具里一个个找自己想要的那个。',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '在数组中查找数字7，如果找到输出"找到"！'
+        },
+        difficulty: 'medium',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[6] = {3, 7, 1, 9, 5, 7};
+    int target = 7;
+
+    // 用线性查找在数组中找target
+    // 如果找到，输出 "找到"
+    // 如果没找到，输出 "没找到"
+
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[6] = {3, 7, 1, 9, 5, 7};
+    int target = 7;
+    bool found = false;
+
+    for (int i = 0; i < 6; i++) {
+        if (arr[i] == target) {
+            found = true;
+            break;
+        }
+    }
+
+    if (found) {
+        cout << "找到" << endl;
+    } else {
+        cout << "没找到" << endl;
+    }
+
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '找到', description: '找到7' }
+        ],
+        hints: [
+          '用for循环遍历数组',
+          '用if判断每个元素是否等于目标',
+          '找到后用break提前结束循环'
+        ],
+        rewards: { experience: 180, magicStones: 70 }
+      }
+    ]
+  },
+  {
+    id: 7,
+    name: '函数魔法',
+    description: '学习自定义函数',
+    icon: '🪄',
+    color: 'from-rose-500 to-pink-500',
+    levels: [
+      {
+        id: '7-1',
+        chapterId: 7,
+        chapterName: '函数魔法',
+        name: 'Hello函数',
+        description: '创建第一个函数',
+        story: '奥兰多告诉你，函数就像魔法卷轴！我们可以把一段常用的魔法写进卷轴，需要时念出咒语（调用函数）就能使用。',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '创建一个sayHello函数，输出"你好"！'
+        },
+        difficulty: 'medium',
+        type: 'tutorial',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+// 在这里创建 sayHello 函数
+
+int main() {
+    // 调用 sayHello 函数
+
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+void sayHello() {
+    cout << "你好" << endl;
+}
+
+int main() {
+    sayHello();
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '你好', description: '输出你好' }
+        ],
+        hints: [
+          '用void表示函数不返回值',
+          '函数定义在main之前',
+          '调用时直接写函数名()'
+        ],
+        rewards: { experience: 150, magicStones: 60 }
+      },
+      {
+        id: '7-2',
+        chapterId: 7,
+        chapterName: '函数魔法',
+        name: '加法函数',
+        description: '学习带参数的函数',
+        story: '现在奥兰多教你更强大的函数——可以接收参数的函数！就像传送门一样，输入坐标，就能到达指定位置。',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '创建一个add函数，接收两个参数并输出它们的和！'
+        },
+        difficulty: 'medium',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+// 创建 add 函数，接收两个整数参数
+
+int main() {
+    add(5, 3);
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+void add(int a, int b) {
+    cout << a + b << endl;
+}
+
+int main() {
+    add(5, 3);
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '8', description: '输出8' }
+        ],
+        hints: [
+          '函数参数写在函数名后面的小括号里',
+          '参数要有类型：int a, int b',
+          '调用时传入具体的值'
+        ],
+        rewards: { experience: 160, magicStones: 65 }
+      },
+      {
+        id: '7-3',
+        chapterId: 7,
+        chapterName: '函数魔法',
+        name: '返回值',
+        description: '学习有返回值的函数',
+        story: '有些函数不只是执行操作，还要返回结果。奥兰多教你创建有返回值的函数！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '创建一个multiply函数，返回两个数的乘积！'
+        },
+        difficulty: 'medium',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+// 创建 multiply 函数，返回两个数的乘积
+
+int main() {
+    int result = multiply(4, 5);
+    cout << result << endl;
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int multiply(int a, int b) {
+    return a * b;
+}
+
+int main() {
+    int result = multiply(4, 5);
+    cout << result << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '20', description: '输出20' }
+        ],
+        hints: [
+          '返回值类型写在前面的int',
+          '用return返回结果',
+          '返回后函数结束'
+        ],
+        rewards: { experience: 170, magicStones: 70 }
+      }
+    ]
+  },
+  {
+    id: 8,
+    name: '查找秘籍',
+    description: '学习高级查找算法',
+    icon: '🔍',
+    color: 'from-teal-500 to-cyan-500',
+    levels: [
+      {
+        id: '8-1',
+        chapterId: 8,
+        chapterName: '查找秘籍',
+        name: '二分查找',
+        description: '学习二分查找算法',
+        story: '奥兰多展示了一个神奇的查找魔法——二分查找！它只适用于已排序的数组，但速度极快！就像在字典里找单词，每次排除一半。',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '在已排序的数组中使用二分查找找到7！'
+        },
+        difficulty: 'hard',
+        type: 'tutorial',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[7] = {1, 3, 5, 7, 9, 11, 13};
+    int target = 7;
+
+    // 使用二分查找
+    // 如果找到输出 "找到"
+    // 没找到输出 "没找到"
+
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[7] = {1, 3, 5, 7, 9, 11, 13};
+    int target = 7;
+    int left = 0, right = 6;
+    bool found = false;
+
+    while (left <= right) {
+        int mid = (left + right) / 2;
+        if (arr[mid] == target) {
+            found = true;
+            break;
+        } else if (arr[mid] < target) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+
+    if (found) cout << "找到" << endl;
+    else cout << "没找到" << endl;
+
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '找到', description: '找到7' }
+        ],
+        hints: [
+          '二分查找需要已排序的数组',
+          '每次取中间位置mid',
+          '根据大小关系排除一半'
+        ],
+        rewards: { experience: 250, magicStones: 100 }
       }
     ]
   }
@@ -629,7 +1206,9 @@ export const defaultUser = {
   level: 1,
   experience: 0,
   magicStones: 0,
-  createdAt: new Date()
+  createdAt: new Date(),
+  streak: 0,
+  lastLoginDate: new Date().toISOString().split('T')[0]
 };
 
 export const achievements = [
@@ -638,10 +1217,18 @@ export const achievements = [
   { id: 'array-hero', name: '数组英雄', description: '完成所有数组关卡', icon: '📊', unlockedAt: undefined },
   { id: 'sort-wizard', name: '排序巫师', description: '掌握排序算法', icon: '🧹', unlockedAt: undefined },
   { id: 'ten-levels', name: '小试牛刀', description: '完成10个关卡', icon: '🏆', unlockedAt: undefined },
+  { id: 'daily-champion', name: '每日王者', description: '连续完成7天每日挑战', icon: '👑', unlockedAt: undefined },
+  { id: 'function-wizard', name: '函数法师', description: '掌握函数魔法', icon: '🪄', unlockedAt: undefined },
+  { id: 'search-master', name: '查找大师', description: '掌握二分查找', icon: '🔍', unlockedAt: undefined },
+  { id: 'week-streak', name: '坚持不懈', description: '连续学习7天', icon: '🔥', unlockedAt: undefined },
+  { id: 'pet-trainer', name: '宠物大师', description: '培养所有宠物到满级', icon: '🎓', unlockedAt: undefined },
 ];
 
 export const pets = [
-  { id: 'pet-1', name: '变量兔', type: 'rabbit', level: 1, exp: 0, image: '🐰', skills: ['变量理解'] },
-  { id: 'pet-2', name: '循环鹰', type: 'eagle', level: 1, exp: 0, image: '🦅', skills: ['循环理解'] },
-  { id: 'pet-3', name: '指针猫', type: 'cat', level: 1, exp: 0, image: '🐱', skills: ['指针理解'] },
+  { id: 'pet-1', name: '变量兔', type: 'rabbit', level: 1, exp: 0, image: '🐰', skills: ['变量理解', '数据类型'] },
+  { id: 'pet-2', name: '循环鹰', type: 'eagle', level: 1, exp: 0, image: '🦅', skills: ['循环理解', '迭代思维'] },
+  { id: 'pet-3', name: '指针猫', type: 'cat', level: 1, exp: 0, image: '🐱', skills: ['数组理解', '内存概念'] },
+  { id: 'pet-4', name: '排序龙', type: 'dragon', level: 1, exp: 0, image: '🐉', skills: ['排序算法', '比较思维'] },
+  { id: 'pet-5', name: '函数狐', type: 'fox', level: 1, exp: 0, image: '🦊', skills: ['函数封装', '代码复用'] },
+  { id: 'pet-6', name: '查找狼', type: 'wolf', level: 1, exp: 0, image: '🐺', skills: ['查找算法', '二分思维'] },
 ];

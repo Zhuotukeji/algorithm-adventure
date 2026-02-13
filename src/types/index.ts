@@ -7,6 +7,25 @@ export interface User {
   experience: number;
   magicStones: number;
   createdAt: Date;
+  streak: number; // 连续登录天数
+  lastLoginDate: string;
+}
+
+// Daily Challenge types
+export interface DailyChallenge {
+  id: string;
+  date: string;
+  title: string;
+  description: string;
+  difficulty: 'easy' | 'medium' | 'hard';
+  codeTemplate: string;
+  solution: string;
+  testCases: TestCase[];
+  rewards: {
+    experience: number;
+    magicStones: number;
+  };
+  completed: boolean;
 }
 
 // Game progress types

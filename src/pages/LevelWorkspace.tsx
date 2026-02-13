@@ -4,8 +4,9 @@ import { courseData } from '../data/courseData';
 import { useGame } from '../context/GameContext';
 import CodeEditor from '../components/CodeEditor';
 import VisualizationPanel from '../components/VisualizationPanel';
-import { ArrowLeft, ChevronRight, CheckCircle, XCircle, Sparkles, PartyPopper } from 'lucide-react';
+import { ArrowLeft, ChevronRight, CheckCircle, XCircle, Sparkles, PartyPopper, Lightbulb } from 'lucide-react';
 import { Level, VisualizationStep } from '../types';
+import { translateError } from '../utils/errorTranslations';
 
 const LevelWorkspace: React.FC = () => {
   const { levelId } = useParams<{ levelId: string }>();
@@ -146,15 +147,17 @@ const LevelWorkspace: React.FC = () => {
         addMagicStones(level.rewards.magicStones);
       }, 1000);
     } else {
-      // Show friendly error
+      // Show kid-friendly error using the translation system
+      const simulatedError = 'error: expected \';\' before'; // Simulated error for demo
+      const translated = translateError(simulatedError);
+
       setError(`哎呀，魔法出错了！😢
 
-请检查以下几点：
-• 你的代码是否完整？
-• 是否忘记了分号；或大括号{}？
-• 变量名是否正确？
+${translated.message}
 
-再试一次吧！`);
+💡 小贴士：${translated.tip}
+
+再试一次吧！加油！💪`);
     }
 
     setIsRunning(false);
