@@ -78,6 +78,13 @@ const LevelWorkspace: React.FC = () => {
   const runCode = useCallback(async () => {
     if (!level) return;
 
+    // Check for empty code
+    if (!code.trim()) {
+      setError('请输入代码后再运行！');
+      setIsRunning(false);
+      return;
+    }
+
     setIsRunning(true);
     setOutput('');
     setError(null);

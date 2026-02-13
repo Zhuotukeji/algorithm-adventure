@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Play, RotateCcw, Lightbulb, Copy, Check } from 'lucide-react';
 
 interface CodeEditorProps {
@@ -14,64 +14,6 @@ interface CodeEditorProps {
   currentHint: number;
 }
 
-// C++ syntax highlighting - returns HTML with colored spans
-const highlightCPP = (code: string): string => {
-  if (!code) return '';
-
-  // Escape HTML special characters first
-  let escaped = code
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
-
-  // C++ keywords
-  const keywords = [
-    'int', 'float', 'double', 'char', 'bool', 'void', 'return', 'if', 'else',
-    'for', 'while', 'do', 'switch', 'case', 'break', 'continue', 'const',
-    'static', 'class', 'public', 'private', 'protected', 'true', 'false', 'new', 'delete',
-    'include', 'define', 'ifdef', 'ifndef', 'endif'
-  ];
-
-  // C++ types
-  const types = [
-    'int', 'float', 'double', 'char', 'bool', 'void', 'string', 'long', 'short', 'unsigned', 'signed'
-  ];
-
-  // Build regex patterns
-  const keywordPattern = new RegExp(`\\b(${keywords.join('|')})\\b`, 'g');
-  const stringPattern = /"([^"\\]|\\.)*"/g;
-  const commentPattern = /\/\/.*$/gm;
-  const numberPattern = /\b(\d+\.?\d*)\b/g;
-  const includePattern = /#\s*\w+/g;
-
-  // Order matters - apply in correct order
-
-  // 1. Comments (gray)
-  escaped = escaped.replace(commentPattern, '<span class="text-gray-500">$&</span>');
-
-  // 2. Strings (green)
-  escaped = escaped.replace(stringPattern, '<span class="text-green-400">$&</span>');
-
-  // 3. Include directives (purple)
-  escaped = escaped.replace(includePattern, '<span class="text-purple-400">$&</span>');
-
-  // 4. Numbers (orange)
-  escaped = escaped.replace(numberPattern, '<span class="text-orange-400">$&</span>');
-
-  // 5. Keywords and types (blue/purple)
-  // Split by word boundaries and process
-  const parts = escaped.split(/(\s+|[^a-zA-Z0-9_\s]+)/);
-  const processed = parts.map(part => {
-    if (keywordPattern.test(part)) {
-      const isType = types.includes(part);
-      return `<span class="${isType ? 'text-blue-400 font-semibold' : 'text-purple-400 font-semibold'}">${part}</span>`;
-    }
-    return part;
-  });
-
-  return processed.join('');
-};
-
 const CodeEditor: React.FC<CodeEditorProps> = ({
   code,
   onChange,
@@ -86,8 +28,6 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
 }) => {
   const [copied, setCopied] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const highlightRef = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(code);
@@ -120,20 +60,8 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
     }
   };
 
-  // Sync scroll between textarea and highlight
-  const handleScroll = () => {
-    if (textareaRef.current && highlightRef.current) {
-      highlightRef.current.scrollTop = textareaRef.current.scrollTop;
-      highlightRef.current.scrollLeft = textareaRef.current.scrollLeft;
-    }
-  };
-
-  // Generate line numbers
-  const lines = code.split('\n');
-  const lineNumbers = lines.map((_, i) => i + 1);
-
   return (
-    <div className="flex flex-col h-full" ref={containerRef}>
+    <div className="flex flex-col h-full">
       {/* Toolbar */}
       <div className="flex items-center justify-between bg-gray-800 px-4 py-2 rounded-t-xl">
         <div className="flex items-center space-x-2">
@@ -167,47 +95,19 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
 
       {/* Code Area */}
       <div className="relative flex-1 bg-[#1e1e1e] rounded-b-xl overflow-hidden" style={{ minHeight: '400px' }}>
-        {/* Line Numbers */}
-        <div className="absolute left-0 top-0 bottom-0 w-12 bg-[#252526] border-r border-gray-700 flex flex-col items-end py-4 pr-2 text-gray-500 text-sm font-mono select-none z-10 overflow-hidden">
-          {lineNumbers.map((num) => (
-            <div key={num} className="h-6 flex items-center">{num}</div>
-          ))}
-        </div>
-
-        {/* Editor Container */}
-        <div className="absolute inset-0 overflow-auto" style={{ marginLeft: '3rem' }}>
-          {/* Syntax Highlighted Layer */}
-          <div
-            ref={highlightRef}
-            className="absolute inset-0 pointer-events-none font-mono text-sm leading-6 text-transparent whitespace-pre-wrap break-words"
-            style={{ padding: '1rem' }}
-            aria-hidden="true"
-          >
-            <pre className="m-0">
-              <code
-                dangerouslySetInnerHTML={{ __html: highlightCPP(code) + '\n' }}
-                className="whitespace-pre-wrap break-words"
-              />
-            </pre>
-          </div>
-
-          {/* Transparent Textarea Layer */}
-          <textarea
-            ref={textareaRef}
-            value={code}
-            onChange={(e) => onChange(e.target.value)}
-            onKeyDown={handleKeyDown}
-            onScroll={handleScroll}
-            className="absolute inset-0 w-full h-full bg-transparent text-transparent caret-white font-mono text-sm leading-6 resize-none focus:outline-none whitespace-pre-wrap break-words"
-            style={{ padding: '1rem' }}
-            spellCheck={false}
-            placeholder="在这里编写你的C++代码..."
-            autoComplete="off"
-            autoCorrect="off"
-            autoCapitalize="off"
-            translate="no"
-          />
-        </div>
+        <textarea
+          ref={textareaRef}
+          value={code}
+          onChange={(e) => onChange(e.target.value)}
+          onKeyDown={handleKeyDown}
+          className="w-full h-full bg-[#1e1e1e] text-white font-mono text-sm leading-6 resize-none focus:outline-none p-4"
+          spellCheck={false}
+          placeholder="在这里编写你的C++代码..."
+          autoComplete="off"
+          autoCorrect="off"
+          autoCapitalize="off"
+          translate="no"
+        />
       </div>
 
       {/* Action Buttons */}
