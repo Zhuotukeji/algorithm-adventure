@@ -212,6 +212,82 @@ int main() {
           '可以用变量保存结果：int result = 5 + 3;'
         ],
         rewards: { experience: 70, magicStones: 20 }
+      },
+      {
+        id: '1-4',
+        chapterId: 1,
+        chapterName: '魔法入门',
+        name: '减法魔法',
+        description: '学习整数减法运算',
+        story: '奥兰多教你另一个基本运算——减法！就像从盒子里拿走东西一样，减法可以计算出剩下的数量。',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '计算 10 - 3 并输出结果！'
+        },
+        difficulty: 'easy',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+int main() {
+    // 计算 10 - 3 并输出结果
+
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    cout << 10 - 3 << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '7', description: '输出 10-3 的结果' }
+        ],
+        hints: [
+          '直接用 - 号进行减法运算',
+          '可以用变量保存结果：int result = 10 - 3;'
+        ],
+        rewards: { experience: 70, magicStones: 20 }
+      },
+      {
+        id: '1-5',
+        chapterId: 1,
+        chapterName: '魔法入门',
+        name: '乘法魔法',
+        description: '学习整数乘法运算',
+        story: '奥兰多展示了一个快速的运算——乘法！就像重复相加多次，乘法可以快速计算出总和。',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '计算 6 × 7 并输出结果！'
+        },
+        difficulty: 'easy',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+int main() {
+    // 计算 6 * 7 并输出结果
+
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    cout << 6 * 7 << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '42', description: '输出 6*7 的结果' }
+        ],
+        hints: [
+          '用 * 号进行乘法运算',
+          '可以用变量保存结果：int result = 6 * 7;'
+        ],
+        rewards: { experience: 70, magicStones: 20 }
       }
     ]
   },
@@ -306,6 +382,50 @@ int main() {
         hints: [
           '可以连续使用 cin >> a >> b;',
           '最后输出 a + b'
+        ],
+        rewards: { experience: 90, magicStones: 30 }
+      },
+      {
+        id: '2-3',
+        chapterId: 2,
+        chapterName: '魔法咒语格式',
+        name: '多位数输入',
+        description: '学习输入多位数字',
+        story: '奥兰多告诉你，有时候我们需要处理更大的数字。让我学习如何读取和计算多位数字！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '读取三个整数，计算它们的和！'
+        },
+        difficulty: 'easy',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+int main() {
+    int a, b, c;
+    // 读取三个整数
+
+    // 计算它们的和并输出
+
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    int a, b, c;
+    cin >> a >> b >> c;
+    cout << a + b + c << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '1 2 3', expectedOutput: '6', description: '计算三个数的和' },
+          { input: '10 20 30', expectedOutput: '60', description: '计算三个数的和' }
+        ],
+        hints: [
+          '可以用 cin >> a >> b >> c; 连续读取',
+          '输出 a + b + c'
         ],
         rewards: { experience: 90, magicStones: 30 }
       }
@@ -417,6 +537,56 @@ int main() {
         hints: [
           '用 % 取余运算',
           '如果 num % 2 == 0，说明是偶数'
+        ],
+        rewards: { experience: 110, magicStones: 40 }
+      },
+      {
+        id: '3-3',
+        chapterId: 3,
+        chapterName: '简单的魔法',
+        name: '比较大小',
+        description: '学习使用比较运算符',
+        story: '奥兰多教你如何比较两个数的大小。这在很多情况下都很有用，比如找出两个数中更大的那个。',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '输入两个整数，输出较大的那个！'
+        },
+        difficulty: 'easy',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+int main() {
+    int a, b;
+    cin >> a >> b;
+
+    // 输出较大的数
+
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    int a, b;
+    cin >> a >> b;
+
+    if (a > b) {
+        cout << a << endl;
+    } else {
+        cout << b << endl;
+    }
+
+    return 0;
+}`,
+        testCases: [
+          { input: '5 3', expectedOutput: '5', description: '输出较大的数' },
+          { input: '10 20', expectedOutput: '20', description: '输出较大的数' }
+        ],
+        hints: [
+          '用 if-else 判断',
+          '如果 a > b，输出 a，否则输出 b'
         ],
         rewards: { experience: 110, magicStones: 40 }
       }
@@ -613,6 +783,55 @@ int main() {
           '输出 i*j 表示第i行第j列的值'
         ],
         rewards: { experience: 180, magicStones: 70 }
+      },
+      {
+        id: '4-5',
+        chapterId: 4,
+        chapterName: '循环魔法',
+        name: '阶乘计算',
+        description: '用循环计算阶乘',
+        story: '奥兰多教你一个有趣的数学问题——阶乘！5的阶乘就是5×4×3×2×1。让我用循环来计算！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '输入一个数n，计算n的阶乘并输出！'
+        },
+        difficulty: 'medium',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    // 计算 n 的阶乘
+
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    int result = 1;
+    for (int i = 1; i <= n; i++) {
+        result = result * i;
+    }
+    cout << result << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '5', expectedOutput: '120', description: '计算5的阶乘' },
+          { input: '3', expectedOutput: '6', description: '计算3的阶乘' }
+        ],
+        hints: [
+          '阶乘是 1*2*3*...*n',
+          '用循环从1乘到n',
+          '注意0的阶乘是1'
+        ],
+        rewards: { experience: 150, magicStones: 50 }
       }
     ]
   },
@@ -769,6 +988,56 @@ int main() {
         hints: [
           '用for循环遍历数组',
           'sum += arr[i] 等价于 sum = sum + arr[i]'
+        ],
+        rewards: { experience: 160, magicStones: 65 }
+      },
+      {
+        id: '5-4',
+        chapterId: 5,
+        chapterName: '数组宝库',
+        name: '找最小值',
+        description: '在数组中找最小值',
+        story: '奥兰多教你如何在数组中找出最小的数。这在比赛中找出最低分、找出最便宜的东西等情况下都很有用！',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '找出数组中最小的数并输出！'
+        },
+        difficulty: 'medium',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[5] = {5, 2, 8, 1, 9};
+
+    // 找出最小的数并输出
+
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[5] = {5, 2, 8, 1, 9};
+    int min = arr[0];
+
+    for (int i = 1; i < 5; i++) {
+        if (arr[i] < min) {
+            min = arr[i];
+        }
+    }
+
+    cout << min << endl;
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '1', description: '最小值是1' }
+        ],
+        hints: [
+          '假设第一个是最小的',
+          '用循环比较每个元素',
+          '如果发现更小的就更新min'
         ],
         rewards: { experience: 160, magicStones: 65 }
       }
@@ -978,6 +1247,65 @@ int main() {
           '找到后用break提前结束循环'
         ],
         rewards: { experience: 180, magicStones: 70 }
+      },
+      {
+        id: '6-4',
+        chapterId: 6,
+        chapterName: '排序秘籍',
+        name: '插入排序',
+        description: '学习插入排序算法',
+        story: '奥兰多教你另一种排序方法——插入排序！它就像整理扑克牌一样，把每张牌插入到正确的位置。',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '用插入排序对数组进行排序！'
+        },
+        difficulty: 'hard',
+        type: 'challenge',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[5] = {5, 2, 4, 6, 1};
+
+    // 使用插入排序算法
+
+    // 输出排序后的数组
+
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[5] = {5, 2, 4, 6, 1};
+
+    for (int i = 1; i < 5; i++) {
+        int key = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        arr[j + 1] = key;
+    }
+
+    for (int i = 0; i < 5; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '1 2 4 5 6 ', description: '排序结果' }
+        ],
+        hints: [
+          '从第二个元素开始',
+          '把当前元素与前面的元素比较',
+          '找到正确位置后插入'
+        ],
+        rewards: { experience: 200, magicStones: 80 }
       }
     ]
   },
@@ -1122,6 +1450,75 @@ int main() {
           '返回后函数结束'
         ],
         rewards: { experience: 170, magicStones: 70 }
+      },
+      {
+        id: '7-4',
+        chapterId: 7,
+        chapterName: '函数魔法',
+        name: '判断素数',
+        description: '编写判断素数的函数',
+        story: '奥兰多教你如何判断一个数是否是素数。素数是只能被1和它本身整除的数，比如2、3、5、7等。',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '编写一个函数，判断一个数是否是素数！'
+        },
+        difficulty: 'medium',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+// 编写一个判断素数的函数
+bool isPrime(int n) {
+    // 在这里实现
+
+}
+
+int main() {
+    int n;
+    cin >> n;
+
+    if (isPrime(n)) {
+        cout << "是素数" << endl;
+    } else {
+        cout << "不是素数" << endl;
+    }
+
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+bool isPrime(int n) {
+    if (n <= 1) return false;
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) return false;
+    }
+    return true;
+}
+
+int main() {
+    int n;
+    cin >> n;
+
+    if (isPrime(n)) {
+        cout << "是素数" << endl;
+    } else {
+        cout << "不是素数" << endl;
+    }
+
+    return 0;
+}`,
+        testCases: [
+          { input: '7', expectedOutput: '是素数', description: '7是素数' },
+          { input: '8', expectedOutput: '不是素数', description: '8不是素数' }
+        ],
+        hints: [
+          '素数是只能被1和本身整除的数',
+          '只需要检查到sqrt(n)',
+          '如果发现任何因子就不是素数'
+        ],
+        rewards: { experience: 180, magicStones: 75 }
       }
     ]
   },
@@ -1194,6 +1591,118 @@ int main() {
           '根据大小关系排除一半'
         ],
         rewards: { experience: 250, magicStones: 100 }
+      },
+      {
+        id: '8-2',
+        chapterId: 8,
+        chapterName: '查找秘籍',
+        name: '顺序查找',
+        description: '学习基本的顺序查找',
+        story: '奥兰多教你最简单的查找方法——顺序查找！就像在一排书中一本本找自己想要的那本。',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '用顺序查找找出数组中的目标数！'
+        },
+        difficulty: 'easy',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[5] = {3, 7, 2, 9, 1};
+    int target = 9;
+
+    // 使用顺序查找
+
+    // 输出找到或没找到
+
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[5] = {3, 7, 2, 9, 1};
+    int target = 9;
+    bool found = false;
+
+    for (int i = 0; i < 5; i++) {
+        if (arr[i] == target) {
+            found = true;
+            break;
+        }
+    }
+
+    if (found) cout << "找到" << endl;
+    else cout << "没找到" << endl;
+
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '找到', description: '找到9' }
+        ],
+        hints: [
+          '从第一个元素开始依次检查',
+          '用for循环遍历',
+          '找到后用break结束'
+        ],
+        rewards: { experience: 120, magicStones: 40 }
+      },
+      {
+        id: '8-3',
+        chapterId: 8,
+        chapterName: '查找秘籍',
+        name: '统计次数',
+        description: '统计某个元素出现的次数',
+        story: '奥兰多教你一个新技能——统计元素出现次数！这在数据分析中非常有用。',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '统计数字5在数组中出现了多少次！'
+        },
+        difficulty: 'medium',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[8] = {5, 2, 5, 7, 5, 3, 5, 1};
+    int target = 5;
+
+    // 统计target出现的次数
+
+    // 输出次数
+
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[8] = {5, 2, 5, 7, 5, 3, 5, 1};
+    int target = 5;
+    int count = 0;
+
+    for (int i = 0; i < 8; i++) {
+        if (arr[i] == target) {
+            count++;
+        }
+    }
+
+    cout << count << endl;
+
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '4', description: '5出现了4次' }
+        ],
+        hints: [
+          '用一个计数器记录次数',
+          '遍历数组',
+          '每次相等时count++'
+        ],
+        rewards: { experience: 140, magicStones: 50 }
       }
     ]
   },
@@ -1378,6 +1887,61 @@ int main() {
           '索引从0开始！'
         ],
         rewards: { experience: 130, magicStones: 45 }
+      },
+      {
+        id: '9-5',
+        chapterId: 9,
+        chapterName: '字符串魔法',
+        name: '字符串反转',
+        description: '反转字符串的字符顺序',
+        story: '奥兰多教你一个有趣的字符串操作——反转字符串！就像把镜子里的字反过来一样。',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '把输入的字符串反转后输出！'
+        },
+        difficulty: 'medium',
+        type: 'practice',
+        codeTemplate: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string s;
+    cin >> s;
+
+    // 反转字符串
+
+    // 输出反转后的字符串
+
+    return 0;
+}`,
+        solution: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string s;
+    cin >> s;
+
+    int n = s.length();
+    for (int i = 0; i < n / 2; i++) {
+        swap(s[i], s[n - 1 - i]);
+    }
+
+    cout << s << endl;
+
+    return 0;
+}`,
+        testCases: [
+          { input: 'hello', expectedOutput: 'olleh', description: '反转hello' }
+        ],
+        hints: [
+          '用两个指针从两端向中间',
+          '用swap交换字符',
+          '只需遍历一半'
+        ],
+        rewards: { experience: 150, magicStones: 55 }
       }
     ]
   },
@@ -1545,6 +2109,121 @@ int main() {
           '用5.0可以得到小数'
         ],
         rewards: { experience: 240, magicStones: 100 }
+      },
+      {
+        id: '10-4',
+        chapterId: 10,
+        chapterName: '综合练习',
+        name: '数字排序',
+        description: '对数字进行排序',
+        story: '奥兰多给你一个挑战——对一组数字进行排序！这需要用到我们之前学的排序算法。',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '对数组 {5, 2, 8, 1, 9} 进行升序排序并输出！'
+        },
+        difficulty: 'medium',
+        type: 'challenge',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[5] = {5, 2, 8, 1, 9};
+
+    // 对数组进行升序排序
+
+    // 输出排序后的数组
+
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[5] = {5, 2, 8, 1, 9};
+
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5 - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+
+    for (int i = 0; i < 5; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+
+    return 0;
+}`,
+        testCases: [
+          { input: '', expectedOutput: '1 2 5 8 9 ', description: '排序结果' }
+        ],
+        hints: [
+          '可以用冒泡排序',
+          '相邻元素比较大小后交换',
+          '每轮把最大的放到最后'
+        ],
+        rewards: { experience: 260, magicStones: 110 }
+      },
+      {
+        id: '10-5',
+        chapterId: 10,
+        chapterName: '综合练习',
+        name: '斐波那契数列',
+        description: '输出斐波那契数列',
+        story: '奥兰多教你一个著名的数列——斐波那契数列！每个数都是前两个数的和：1, 1, 2, 3, 5, 8, 13...',
+        npc: {
+          name: '奥兰多',
+          avatar: '🧙',
+          dialogue: '输入n，输出斐波那契数列的前n项！'
+        },
+        difficulty: 'medium',
+        type: 'challenge',
+        codeTemplate: `#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    // 输出斐波那契数列的前n项
+
+    return 0;
+}`,
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    int a = 1, b = 1;
+    if (n >= 1) cout << a << " ";
+    if (n >= 2) cout << b << " ";
+
+    for (int i = 3; i <= n; i++) {
+        int c = a + b;
+        cout << c << " ";
+        a = b;
+        b = c;
+    }
+    cout << endl;
+
+    return 0;
+}`,
+        testCases: [
+          { input: '10', expectedOutput: '1 1 2 3 5 8 13 21 34 55 ', description: '前10项' }
+        ],
+        hints: [
+          '前两项是1, 1',
+          '每项等于前两项之和',
+          '用两个变量保存前两项'
+        ],
+        rewards: { experience: 280, magicStones: 120 }
       }
     ]
   }

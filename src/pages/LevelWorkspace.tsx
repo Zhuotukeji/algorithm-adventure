@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { courseData } from '../data/courseData';
+import { courseData, dailyChallenges } from '../data/courseData';
 import { useGame } from '../context/GameContext';
 import CodeEditor from '../components/CodeEditor';
 import VisualizationPanel from '../components/VisualizationPanel';
-import { ArrowLeft, ChevronRight, CheckCircle, XCircle, Sparkles, PartyPopper, Lightbulb } from 'lucide-react';
+import { ArrowLeft, ChevronRight, CheckCircle, XCircle, Sparkles, PartyPopper, Lightbulb, Calendar } from 'lucide-react';
 import { Level, VisualizationStep } from '../types';
 import { translateError } from '../utils/errorTranslations';
 
@@ -23,10 +23,42 @@ const LevelWorkspace: React.FC = () => {
   const [visualizationSteps, setVisualizationSteps] = useState<VisualizationStep[]>([]);
   const [isVisualizing, setIsVisualizing] = useState(false);
 
-  // Find level data
+  // Find level data (supports both regular levels and daily challenges)
   useEffect(() => {
+    if (!levelId) return;
+
+    // First try to find in regular course levels
     const allLevels = courseData.flatMap(chapter => chapter.levels);
-    const foundLevel = allLevels.find(l => l.id === levelId);
+    let foundLevel = allLevels.find(l => l.id === levelId);
+
+    // If not found, check if it's a daily challenge
+    if (!foundLevel && levelId.startsWith('daily-')) {
+      const challenge = dailyChallenges.find(c => c.id === levelId || `daily-${c.id}` === levelId);
+      if (challenge) {
+        // Convert DailyChallenge to Level format
+        foundLevel = {
+          id: challenge.id,
+          chapterId: 0,
+          chapterName: '每日挑战',
+          name: challenge.title,
+          description: challenge.description,
+          story: challenge.description,
+          npc: {
+            name: '每日挑战导师',
+            avatar: '🎯',
+            dialogue: '完成这个挑战来获得额外奖励！'
+          },
+          difficulty: challenge.difficulty,
+          type: 'challenge' as const,
+          codeTemplate: challenge.codeTemplate,
+          solution: challenge.solution,
+          testCases: challenge.testCases,
+          hints: ['仔细思考问题的解法', '尝试使用数学方法简化问题'],
+          rewards: challenge.rewards
+        };
+      }
+    }
+
     if (foundLevel) {
       setLevel(foundLevel);
       setCurrentLevel(foundLevel);
