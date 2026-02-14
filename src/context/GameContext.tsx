@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { User, Level, LevelProgress, Achievement, Pet } from '../types';
 import { defaultUser, courseData, achievements as defaultAchievements, pets as defaultPets } from '../data/courseData';
 import { useAuth } from './AuthContext';
+import { supabase } from '../utils/supabase';
 
 interface GameContextType {
   user: User;
@@ -60,6 +61,49 @@ export const GameProvider: React.FC<GameProviderProps> = ({ children }) => {
         streak: authUser.streak,
         lastLoginDate: authUser.lastLoginDate
       });
+
+      // Load level progress from database
+      const loadLevelProgress = async () => {
+        try {
+          const { data: progressData, error } = await supabase
+            .from('user_progress')
+            .select('*')
+            .eq('user_id', authUser.id);
+
+          if (error) {
+            console.error('Error loading level progress:', error);
+            return;
+          }
+
+          if (progressData && progressData.length > 0) {
+            // Merge database progress with default progress
+            const allLevels = courseData.flatMap(chapter => chapter.levels);
+            const mergedProgress = allLevels.map((level, index) => {
+              const dbProgress = progressData.find(p => p.level_id === level.id);
+              if (dbProgress) {
+                return {
+                  levelId: level.id,
+                  status: dbProgress.status as 'locked' | 'unlocked' | 'in_progress' | 'completed',
+                  attempts: dbProgress.attempts || 0,
+                  completedAt: dbProgress.completed_at ? new Date(dbProgress.completed_at) : undefined,
+                  bestCode: dbProgress.best_code || undefined
+                };
+              }
+              // Default: first level unlocked, others locked
+              return {
+                levelId: level.id,
+                status: (index === 0 ? 'unlocked' : 'locked') as 'locked' | 'unlocked' | 'in_progress' | 'completed',
+                attempts: 0
+              };
+            });
+            setLevelProgress(mergedProgress);
+          }
+        } catch (error) {
+          console.error('Error loading level progress:', error);
+        }
+      };
+
+      loadLevelProgress();
     }
   }, [authUser]);
 
@@ -76,7 +120,11 @@ export const GameProvider: React.FC<GameProviderProps> = ({ children }) => {
     }
   }, [user.level, user.experience, user.magicStones, user.streak, user.lastLoginDate]);
 
-  const completeLevel = (levelId: string, code: string) => {
+  const completeLevel = async (levelId: string, code: string) => {
+    // Get user ID for database sync
+    const userId = authUser?.id;
+
+    // Update local state
     setLevelProgress(prev => prev.map(progress =>
       progress.levelId === levelId
         ? { ...progress, status: 'completed' as const, completedAt: new Date(), bestCode: code }
@@ -86,12 +134,56 @@ export const GameProvider: React.FC<GameProviderProps> = ({ children }) => {
     // Unlock next level
     const allLevels = courseData.flatMap(chapter => chapter.levels);
     const currentIndex = allLevels.findIndex(l => l.id === levelId);
+    let nextLevelId: string | null = null;
     if (currentIndex < allLevels.length - 1) {
+      nextLevelId = allLevels[currentIndex + 1].id;
       setLevelProgress(prev => prev.map(progress =>
-        progress.levelId === allLevels[currentIndex + 1].id
+        progress.levelId === nextLevelId
           ? { ...progress, status: 'unlocked' as const }
           : progress
       ));
+    }
+
+    // Sync to database if user is logged in
+    if (userId) {
+      try {
+        // Mark current level as completed
+        await supabase.from('user_progress').upsert({
+          user_id: userId,
+          level_id: levelId,
+          status: 'completed',
+          best_code: code,
+          completed_at: new Date().toISOString()
+        }, {
+          onConflict: 'user_id,level_id'
+        });
+
+        // Unlock next level in database
+        if (nextLevelId) {
+          const { data: existingNext } = await supabase
+            .from('user_progress')
+            .select('status')
+            .eq('user_id', userId)
+            .eq('level_id', nextLevelId)
+            .single();
+
+          if (!existingNext) {
+            await supabase.from('user_progress').upsert({
+              user_id: userId,
+              level_id: nextLevelId,
+              status: 'unlocked'
+            }, {
+              onConflict: 'user_id,level_id'
+            });
+          } else if (existingNext.status === 'locked') {
+            await supabase.from('user_progress').update({
+              status: 'unlocked'
+            }).eq('user_id', userId).eq('level_id', nextLevelId);
+          }
+        }
+      } catch (error) {
+        console.error('Error saving level progress to database:', error);
+      }
     }
   };
 

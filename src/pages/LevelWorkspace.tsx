@@ -480,7 +480,7 @@ ${translated.message}
                         </button>
                       ) : (
                         <button
-                          onClick={() => navigate('/map')}
+                          onClick={handleNextLevel}
                           className="w-full py-3 px-6 bg-white text-adventure-600 font-bold rounded-lg hover:bg-adventure-100 transition-colors flex items-center justify-center gap-2"
                         >
                           <span>下一关</span>
