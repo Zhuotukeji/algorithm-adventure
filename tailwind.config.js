@@ -139,6 +139,11 @@ module.exports = {
           '0%': { backgroundPosition: '-200% 0' },
           '100%': { backgroundPosition: '200% 0' },
         },
+        'bounce-in': {
+          '0%': { transform: 'scale(0)', opacity: '0' },
+          '50%': { transform: 'scale(1.1)' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -147,6 +152,7 @@ module.exports = {
         'float': 'float 3s ease-in-out infinite',
         'bounce-slow': 'bounce-slow 2s ease-in-out infinite',
         'shine': 'shine 2s linear infinite',
+        'bounce-in': 'bounce-in 0.5s ease-out',
       },
       fontFamily: {
         // 使用系统圆体字体

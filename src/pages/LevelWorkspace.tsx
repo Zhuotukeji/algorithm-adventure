@@ -451,19 +451,42 @@ ${translated.message}
 
             {/* Success Modal */}
             {showSuccess && (
-              <div className="bg-gradient-to-br from-adventure-500 to-adventure-600 rounded-xl p-6 text-white shadow-xl animate-pulse-glow">
-                <div className="text-center">
-                  <div className="text-6xl mb-4">🎉</div>
-                  <h3 className="text-2xl font-bold mb-2">恭喜通关！</h3>
-                  <p className="text-adventure-100 mb-4">你成功完成了这个关卡！</p>
-                  <div className="flex justify-center space-x-6 mb-6">
-                    <div className="text-center">
-                      <div className="text-3xl font-bold">+{level.rewards.experience}</div>
-                      <div className="text-xs text-adventure-200">经验值</div>
+              <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                <div className="bg-gradient-to-br from-adventure-500 to-adventure-600 rounded-2xl p-8 text-white shadow-2xl max-w-md mx-4 animate-bounce-in">
+                  <div className="text-center">
+                    <div className="text-7xl mb-4">🎉</div>
+                    <h3 className="text-3xl font-bold mb-2">恭喜通关！</h3>
+                    <p className="text-adventure-100 mb-6">你成功完成了这个关卡！</p>
+                    <div className="flex justify-center space-x-8 mb-8">
+                      <div className="text-center">
+                        <div className="text-4xl font-bold">+{level.rewards.experience}</div>
+                        <div className="text-sm text-adventure-200">经验值</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-4xl font-bold">💎{level.rewards.magicStones}</div>
+                        <div className="text-sm text-adventure-200">魔法石</div>
+                      </div>
                     </div>
-                    <div className="text-center">
-                      <div className="text-3xl font-bold">💎{level.rewards.magicStones}</div>
-                      <div className="text-xs text-adventure-200">魔法石</div>
+
+                    {/* Action Buttons */}
+                    <div className="flex flex-col gap-3">
+                      {levelId?.startsWith('daily-') ? (
+                        <button
+                          onClick={() => navigate('/')}
+                          className="w-full py-3 px-6 bg-white text-adventure-600 font-bold rounded-lg hover:bg-adventure-100 transition-colors flex items-center justify-center gap-2"
+                        >
+                          <span>回到首页</span>
+                          <span className="text-lg">🏠</span>
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => navigate('/map')}
+                          className="w-full py-3 px-6 bg-white text-adventure-600 font-bold rounded-lg hover:bg-adventure-100 transition-colors flex items-center justify-center gap-2"
+                        >
+                          <span>下一关</span>
+                          <span className="text-lg">➡️</span>
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
