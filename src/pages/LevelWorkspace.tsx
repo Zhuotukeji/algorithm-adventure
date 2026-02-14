@@ -1,17 +1,20 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { courseData, dailyChallenges } from '../data/courseData';
+import { courseData } from '../data/courseData';
 import { useGame } from '../context/GameContext';
+import { useAuth } from '../context/AuthContext';
 import CodeEditor from '../components/CodeEditor';
 import VisualizationPanel from '../components/VisualizationPanel';
 import { ArrowLeft, ChevronRight, CheckCircle, XCircle, Sparkles, PartyPopper, Lightbulb, Calendar, FileText, ArrowDown, ArrowUp } from 'lucide-react';
 import { Level, VisualizationStep, TestCase } from '../types';
 import { translateError } from '../utils/errorTranslations';
+import { generateDailyChallenge, recordDailyChallengeProgress, DailyChallenge } from '../utils/dailyChallengeService';
 
 const LevelWorkspace: React.FC = () => {
   const { levelId } = useParams<{ levelId: string }>();
   const navigate = useNavigate();
   const { setCurrentLevel, completeLevel, addExp, addMagicStones, levelProgress } = useGame();
+  const { user } = useAuth();
 
   const [level, setLevel] = useState<Level | null>(null);
   const [code, setCode] = useState('');
@@ -29,44 +32,58 @@ const LevelWorkspace: React.FC = () => {
   useEffect(() => {
     if (!levelId) return;
 
-    // First try to find in regular course levels
-    const allLevels = courseData.flatMap(chapter => chapter.levels);
-    let foundLevel = allLevels.find(l => l.id === levelId);
+    const loadLevel = async () => {
+      // First try to find in regular course levels
+      const allLevels = courseData.flatMap(chapter => chapter.levels);
+      let foundLevel = allLevels.find(l => l.id === levelId);
 
-    // If not found, check if it's a daily challenge
-    if (!foundLevel && levelId.startsWith('daily-')) {
-      const challenge = dailyChallenges.find(c => c.id === levelId || `daily-${c.id}` === levelId);
-      if (challenge) {
-        // Convert DailyChallenge to Level format
-        foundLevel = {
-          id: challenge.id,
-          chapterId: 0,
-          chapterName: '每日挑战',
-          name: challenge.title,
-          description: challenge.description,
-          story: challenge.description,
-          npc: {
-            name: '每日挑战导师',
-            avatar: '🎯',
-            dialogue: '完成这个挑战来获得额外奖励！'
-          },
-          difficulty: challenge.difficulty,
-          type: 'challenge' as const,
-          codeTemplate: challenge.codeTemplate,
-          solution: challenge.solution,
-          testCases: challenge.testCases,
-          hints: ['仔细思考问题的解法', '尝试使用数学方法简化问题'],
-          rewards: challenge.rewards
-        };
+      // If not found, check if it's a daily challenge
+      if (!foundLevel && levelId.startsWith('daily-')) {
+        // Get user's current level to generate appropriate challenge
+        const userLevel = user?.level || 1;
+
+        // Generate daily challenge based on user level
+        const challenge = await generateDailyChallenge(user?.id || 'guest', userLevel);
+
+        if (challenge) {
+          // Convert DailyChallenge to Level format
+          foundLevel = {
+            id: challenge.id,
+            chapterId: challenge.chapterId,
+            chapterName: '每日挑战',
+            name: challenge.title,
+            description: challenge.description,
+            story: challenge.description,
+            npc: {
+              name: '每日挑战导师',
+              avatar: '🎯',
+              dialogue: '完成这个挑战来获得额外奖励！'
+            },
+            difficulty: challenge.difficulty,
+            type: 'challenge' as const,
+            codeTemplate: challenge.codeTemplate,
+            solution: challenge.solution,
+            testCases: challenge.testCases,
+            hints: challenge.hints,
+            rewards: challenge.rewards
+          };
+
+          // Record that user started the challenge
+          if (user?.id) {
+            await recordDailyChallengeProgress(user.id, challenge.date, 'in_progress', 0);
+          }
+        }
       }
-    }
 
-    if (foundLevel) {
-      setLevel(foundLevel);
-      setCurrentLevel(foundLevel);
-      setCode(foundLevel.codeTemplate);
-    }
-  }, [levelId, setCurrentLevel]);
+      if (foundLevel) {
+        setLevel(foundLevel);
+        setCurrentLevel(foundLevel);
+        setCode(foundLevel.codeTemplate);
+      }
+    };
+
+    loadLevel();
+  }, [levelId, setCurrentLevel, user]);
 
   // Get previous level progress
   const getLevelStatus = (id: string) => {
@@ -233,11 +250,17 @@ const LevelWorkspace: React.FC = () => {
       }
 
       // Show success after a delay
-      setTimeout(() => {
+      setTimeout(async () => {
         setShowSuccess(true);
         completeLevel(level.id, code);
         addExp(level.rewards.experience);
         addMagicStones(level.rewards.magicStones);
+
+        // Record daily challenge completion
+        if (levelId?.startsWith('daily-') && user?.id) {
+          const today = new Date().toISOString().split('T')[0];
+          await recordDailyChallengeProgress(user.id, today, 'completed', 1);
+        }
       }, 1000);
     } else {
       // Some tests failed - show detailed error with which test case failed
